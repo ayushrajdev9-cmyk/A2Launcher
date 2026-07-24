@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A2Launcher - Play Minecraft in Browser Online | Free Web Client by Ayush Rajdev & Anzar Iqbal</title>
+<meta name="description" content="A2Launcher - Free Minecraft web client by Ayush Rajdev and Anzar Iqbal. Play Minecraft in your browser online without downloading or installing Java. Join Hypixel, CubeCraft, Eaglercraft servers directly from your browser. No download required, works on any device.">
+<meta name="keywords" content="Minecraft web client, play Minecraft in browser, Minecraft online, A2Launcher, Ayush Rajdev, Anzar Iqbal, Eaglercraft, Minecraft browser game, free Minecraft, play Minecraft without download, Minecraft web launcher, MessCraft alternative, browser Minecraft, Minecraft WebGL">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Ayush Rajdev & Anzar Iqbal">
+<meta name="geo.region" content="IN-MP">
+<meta name="geo.placename" content="Obedullaganj, Madhya Pradesh">
+<link rel="canonical" href="https://a2launcher.vercel.app">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="A2Launcher - Play Minecraft in Browser | Free Web Client">
+<meta property="og:description" content="Free Minecraft web client by Ayush Rajdev & Anzar Iqbal. Play Minecraft directly in your browser. No download, no Java, no install. Join popular servers with one click!">
+<meta property="og:url" content="https://a2launcher.vercel.app">
+<meta property="og:site_name" content="A2Launcher">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://a2launcher.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A2Launcher - Minecraft Web Client Screenshot">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A2Launcher - Play Minecraft in Browser | Free Web Client">
+<meta name="twitter:description" content="Free Minecraft web client by Ayush Rajdev & Anzar Iqbal. Play Minecraft in your browser without downloading or installing Java. Join any Eaglercraft server instantly!">
+<meta name="twitter:image" content="https://a2launcher.vercel.app/og-image.png">
+<meta name="twitter:creator" content="@AYUSH6909">
+<meta name="twitter:site" content="@AYUSH6909">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "A2Launcher",
+  "alternateName": "A2 Minecraft Web Launcher",
+  "url": "https://a2launcher.vercel.app",
+  "description": "Free Minecraft web client that runs in your browser. No download required. Supports multiplayer via Eaglercraft-compatible WebSocket servers.",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "All (Web Browser)",
+  "browserRequirements": "Requires JavaScript and WebGL",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Ayush Rajdev",
+      "url": "https://github.com/ayushanzarai",
+      "sameAs": ["https://twitter.com/AYUSH6909", "https://www.instagram.com/ayush6909_/"]
+    },
+    {
+      "@type": "Person",
+      "name": "Anzar Iqbal",
+      "url": "https://github.com/ayushanzarai"
+    }
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "keywords": "minecraft web client, play minecraft online, eaglercraft, browser minecraft, free minecraft, minecraft launcher",
+  "image": "https://a2launcher.vercel.app/og-image.png"
+}
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "How to play Minecraft in browser?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You can play Minecraft in your browser using A2Launcher. Just visit the website, click on a server from the server browser, and the Eaglercraft client will load automatically. No download or Java installation required."
+    }
+  },{
+    "@type": "Question",
+    "name": "Is A2Launcher free?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, A2Launcher is completely free and open source. It was created by Ayush Rajdev and Anzar Iqbal as a free Minecraft web client for everyone."
+    }
+  },{
+    "@type": "Question",
+    "name": "What is Eaglercraft?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Eaglercraft is a technology that allows Minecraft Java Edition to run in a web browser using WebGL and JavaScript. A2Launcher uses Eaglercraft to provide a seamless browser-based Minecraft experience."
+    }
+  },{
+    "@type": "Question",
+    "name": "Do I need to install Java for A2Launcher?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No, A2Launcher runs entirely in your web browser. You don't need to install Java, Minecraft, or any other software. Just open the website and start playing."
+    }
+  }]
+}
+</script>
+
+<!-- Breadcrumb Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "A2Launcher",
+    "item": "https://a2launcher.vercel.app"
+  }]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#07090e;color:#e8edf2;overflow:hidden;height:100vh;user-select:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#07090e}
+::-webkit-scrollbar-thumb{background:#1a1f2e;border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:#334155}
+
+/* ─── Splash Screen ─── */
+.splash{position:fixed;inset:0;background:#07090e;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity 0.8s ease}
+.splash.hidden{opacity:0;pointer-events:none}
+.splash h1{font-size:52px;font-weight:900;background:linear-gradient(135deg,#00d4ff,#7c3aed,#06d6a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.splash p{color:#475569;font-size:14px;margin-bottom:30px}
+.splash .loader{width:200px;height:3px;background:#1a1f2e;border-radius:2px;overflow:hidden}
+.splash .loader-bar{height:100%;width:0%;background:linear-gradient(90deg,#00d4ff,#7c3aed);border-radius:2px;animation:loadBar 1.5s ease forwards}
+@keyframes loadBar{to{width:100%}}
+
+/* ─── Main App ─── */
+.app{display:flex;height:100vh;opacity:0;transition:opacity 0.6s ease}
+.app.visible{opacity:1}
+
+/* ─── Sidebar ─── */
+.sidebar{width:240px;background:#0b0e16;border-right:1px solid #151b28;display:flex;flex-direction:column;flex-shrink:0}
+.logo{padding:24px 22px 18px;border-bottom:1px solid #151b28}
+.logo h1{font-size:22px;font-weight:900;background:linear-gradient(135deg,#00d4ff,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px}
+.logo .byline{font-size:11px;color:#475569;margin-top:3px;-webkit-text-fill-color:#475569}
+.nav{padding:14px 10px;flex:1}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:8px;color:#64748b;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;margin-bottom:2px}
+.nav-item:hover{background:#141b2b;color:#e8edf2}
+.nav-item.active{background:linear-gradient(135deg,rgba(0,212,255,0.1),rgba(124,58,237,0.1));color:#00d4ff;border:1px solid rgba(0,212,255,0.12)}
+.nav-item .ico{font-size:16px;width:24px;text-align:center}
+.nav-bottom{margin-top:auto;padding:16px;border-top:1px solid #151b28;font-size:10px;color:#2a3140;text-align:center;line-height:1.6}
+
+/* ─── Main Content ─── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:#0b0e16;border-bottom:1px solid #151b28}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:#06d6a0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.topbar-left h2{font-size:15px;font-weight:600;color:#e8edf2}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-right a{color:#475569;text-decoration:none;font-size:12px;transition:color 0.2s}
+.topbar-right a:hover{color:#00d4ff}
+.topbar-right .version-badge{background:#151b28;padding:4px 10px;border-radius:20px;font-size:10px;color:#64748b;font-weight:600}
+
+.content{flex:1;display:flex;padding:24px 28px;gap:24px;overflow:hidden}
+.left-panel{flex:1;display:flex;flex-direction:column;gap:16px;overflow-y:auto;padding-right:8px}
+.right-panel{width:320px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+
+/* ─── Cards ─── */
+.card{background:#0b0e16;border:1px solid #151b28;border-radius:12px;padding:20px;transition:border-color 0.2s}
+.card:hover{border-color:#1f2840}
+.card-title{font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+
+/* ─── Hero Card ─── */
+.hero-card{background:linear-gradient(135deg,#0b0e16,#141b2b);border:1px solid #1f2840;border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(0,212,255,0.04),transparent 70%);pointer-events:none}
+.hero-card h2{font-size:28px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#e8edf2,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-card p{color:#64748b;font-size:13px;margin-bottom:20px;-webkit-text-fill-color:#64748b}
+.hero-card .play-big{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#00d4ff,#7c3aed);color:#fff;font-family:'Inter',sans-serif;transition:all 0.3s;position:relative;overflow:hidden}
+.hero-card .play-big:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,0.25)}
+.hero-card .play-big:active{transform:translateY(0)}
+.hero-card .play-big .shine{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);animation:shine 3s infinite}
+@keyframes shine{to{left:100%}}
+
+/* ─── Server List ─── */
+.server-list{display:flex;flex-direction:column;gap:4px;max-height:280px;overflow-y:auto;padding-right:4px}
+.server-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:all 0.2s;background:#080a12;border:1px solid #151b28}
+.server-item:hover{border-color:#00d4ff;background:#0d1424}
+.server-item .s-icon{font-size:22px;width:36px;text-align:center}
+.server-item .s-info{flex:1;min-width:0}
+.server-item .s-name{font-size:13px;font-weight:600;color:#e8edf2}
+.server-item .s-ip{font-size:10px;color:#475569;margin-top:2px}
+.server-item .s-status{font-size:10px;font-weight:600;padding:3px 8px;border-radius:12px}
+.s-online{color:#06d6a0;background:rgba(6,214,160,0.1)}
+.s-offline{color:#ef4444;background:rgba(239,68,68,0.1)}
+.server-item .s-players{font-size:10px;color:#475569}
+.server-custom{margin-top:8px;display:flex;gap:6px}
+.server-custom input{flex:1;background:#080a12;border:1px solid #151b28;border-radius:8px;padding:10px 12px;font-size:12px;color:#e8edf2;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s}
+.server-custom input:focus{border-color:#00d4ff}
+.server-custom button{background:linear-gradient(135deg,#00d4ff,#7c3aed);border:none;border-radius:8px;padding:10px 18px;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.server-custom button:hover{opacity:0.9}
+
+/* ─── Settings Panel ─── */
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #141b2b}
+.setting-row:last-child{border-bottom:none}
+.setting-row label{font-size:12px;color:#94a3b8}
+.setting-row input,.setting-row select{background:#080a12;border:1px solid #151b28;border-radius:6px;padding:6px 10px;font-size:12px;color:#e8edf2;outline:none;font-family:'Inter',sans-serif;width:100px;text-align:center;transition:border-color 0.2s}
+.setting-row input:focus,.setting-row select:focus{border-color:#00d4ff}
+.setting-row select{width:auto}
+
+/* ─── Tips - Eaglercraft Servers List ─── */
+.tip-item{font-size:12px;color:#64748b;line-height:2;padding:2px 0}
+.tip-item strong{color:#94a3b8}
+.tip-item .cpy{cursor:pointer;color:#00d4ff;font-size:10px;margin-left:6px;padding:2px 6px;border-radius:4px;background:rgba(0,212,255,0.1);transition:all 0.2s}
+.tip-item .cpy:hover{background:rgba(0,212,255,0.2)}
+
+/* ─── Game Overlay (Eaglercraft iframe) ─── */
+.game-overlay{position:fixed;inset:0;z-index:100;background:#000;display:none;flex-direction:column}
+.game-overlay.active{display:flex}
+.game-overlay .game-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:#0b0e16;border-bottom:1px solid #151b28;flex-shrink:0}
+.game-overlay .game-bar span{font-size:12px;color:#64748b}
+.game-overlay .game-bar .exit-btn{padding:6px 14px;border:none;border-radius:6px;background:#ef4444;color:#fff;font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity 0.2s}
+.game-overlay .game-bar .exit-btn:hover{opacity:0.8}
+.game-overlay iframe{flex:1;border:none;background:#000}
+
+/* ─── Footer ─── */
+.statusbar{display:flex;align-items:center;justify-content:space-between;padding:8px 28px;background:#0b0e16;border-top:1px solid #151b28;font-size:11px;color:#475569;flex-shrink:0}
+.statusbar .creds{color:#2a3140;font-size:10px}
+
+@media(max-width:800px){
+  .sidebar{width:60px}
+  .sidebar .byline,.nav-item span{display:none}
+  .logo h1{font-size:16px}
+  .nav-item{justify-content:center;padding:11px}
+  .content{flex-direction:column;padding:16px}
+  .right-panel{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Splash ─── -->
+<div class="splash" id="splash">
+  <h1>⛏ A2</h1>
+  <p>Minecraft Web Client by Ayush Rajdev & Anzar Iqbal</p>
+  <div class="loader"><div class="loader-bar"></div></div>
+</div>
+
+<!-- ─── Game Overlay ─── -->
+<div class="game-overlay" id="gameOverlay">
+  <div class="game-bar">
+    <span id="gameServerInfo">🟢 Connected to server</span>
+    <button class="exit-btn" onclick="exitGame()">✕ Exit Game</button>
+  </div>
+  <iframe id="gameFrame" allow="clipboard-read; clipboard-write"></iframe>
+</div>
+
+<!-- ─── Main App ─── -->
+<div class="app" id="app">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <h1>⛏ A2Launcher</h1>
+      <div class="byline">by Ayush Rajdev & Anzar Iqbal</div>
+    </div>
+    <div class="nav">
+      <div class="nav-item active" onclick="showTab('home')"><span class="ico">🏠</span><span>Home</span></div>
+      <div class="nav-item" onclick="showTab('servers')"><span class="ico">🌍</span><span>Servers</span></div>
+      <div class="nav-item" onclick="showTab('settings')"><span class="ico">⚙</span><span>Settings</span></div>
+      <div class="nav-item" onclick="window.open('https://github.com/ayushrajdev9-cmyk/A2Launcher','_blank')"><span class="ico">⭐</span><span>GitHub</span></div>
+    </div>
+    <div class="nav-bottom">
+      A2Launcher v3.0.0<br>
+      Made with ❤️ in India 🇮🇳
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="pulse-dot"></div>
+        <h2 id="statusTitle">Ready to play</h2>
+      </div>
+      <div class="topbar-right">
+        <a href="https://github.com/ayushrajdev9-cmyk/A2Launcher" target="_blank">⭐ GitHub</a>
+        <span class="version-badge">v3.0.0</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Left Panel -->
+      <div class="left-panel" id="tabHome">
+        <!-- Hero with H1 for SEO -->
+        <div class="hero-card">
+          <h1>⛏ A2Launcher — Play Minecraft in Browser Online</h1>
+          <p>Free Minecraft web client by <strong>Ayush Rajdev</strong> and <strong>Anzar Iqbal</strong>. Play Minecraft directly in your browser without downloading or installing anything. Works on any device with a modern browser.</p>
+          <p style="font-size:12px;color:#64748b;margin-top:-12px;margin-bottom:20px;-webkit-text-fill-color:#64748b">No Java needed • No download required • 100% free &amp; open source</p>
+          <button class="play-big" onclick="showTab('servers')">
+            <span class="shine"></span>
+            ▶ Browse Servers &amp; Play Now
+          </button>
+        </div>
+
+        <!-- SEO Text Content -->
+        <div class="card" style="background:#0b0e16">
+          <div class="card-title">🎮 How to Play Minecraft in Browser</div>
+          <div style="font-size:12px;color:#64748b;line-height:1.8">
+            <strong style="color:#e8edf2">A2Launcher</strong> lets you play <strong style="color:#00d4ff">Minecraft in your browser</strong> using Eaglercraft technology. 
+            It's the easiest way to play Minecraft online without installing Java or downloading any files. 
+            Simply choose a server from the list below and click to join — the game loads instantly in your browser window.<br><br>
+            
+            ✓ <strong style="color:#06d6a0">100% Browser-Based</strong> — Uses WebGL and WebSocket technology<br>
+            ✓ <strong style="color:#06d6a0">No Installation</strong> — Nothing to download, nothing to install<br>
+            ✓ <strong style="color:#06d6a0">Multiplayer</strong> — Join Eaglercraft-compatible servers with friends<br>
+            ✓ <strong style="color:#06d6a0">Free Forever</strong> — Open source and completely free
+          </div>
+        </div>
+
+        <!-- Latest Servers -->
+        <div class="card">
+          <div class="card-title">🔥 Popular Servers</div>
+          <div class="server-list">
+            <div class="server-item" onclick="connectServer('wss://eaglercraft.com:25569')">
+              <span class="s-icon">⚔️</span>
+              <div class="s-info">
+                <div class="s-name">Eaglercraft Official</div>
+                <div class="s-ip">wss://eaglercraft.com:25569</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://play.eaglercraft.net:25569')">
+              <span class="s-icon">🌐</span>
+              <div class="s-info">
+                <div class="s-name">Eaglercraft Network</div>
+                <div class="s-ip">wss://play.eaglercraft.net:25569</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://mc.lc:25569')">
+              <span class="s-icon">🎯</span>
+              <div class="s-info">
+                <div class="s-name">MC Land</div>
+                <div class="s-ip">wss://mc.lc:25569</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://server.buildtheearth.net:25569')">
+              <span class="s-icon">🌍</span>
+              <div class="s-info">
+                <div class="s-name">Build The Earth</div>
+                <div class="s-ip">wss://server.buildtheearth.net:25569</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Section with H2 for SEO -->
+        <div class="card">
+          <h2 style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px">💡 About A2Launcher Minecraft Web Client</h2>
+          <div style="font-size:12px;color:#64748b;line-height:1.8">
+            <strong style="color:#e8edf2">A2Launcher</strong> is a <strong style="color:#00d4ff">free Minecraft web client</strong> built by 
+            <strong style="color:#00d4ff">Ayush Rajdev</strong> and <strong style="color:#7c3aed">Anzar Iqbal</strong> from 
+            <strong style="color:#94a3b8">Obedullaganj, Madhya Pradesh, India</strong>.<br><br>
+            
+            It uses <strong style="color:#e8edf2">Eaglercraft</strong> technology to run <strong style="color:#06d6a0">Minecraft in your browser</strong> 
+            using <strong style="color:#94a3b8">WebGL</strong> and <strong style="color:#94a3b8">WebSocket</strong>. 
+            You can play <strong style="color:#e8edf2">Minecraft online</strong> on any device — PC, laptop, tablet, or phone — 
+            without installing Java or downloading any files.<br><br>
+            
+            <strong style="color:#e8edf2">Popular Minecraft servers you can join:</strong><br>
+            • <strong style="color:#00d4ff">Eaglercraft Official</strong> — wss://eaglercraft.com:25569<br>
+            • <strong style="color:#00d4ff">Eaglercraft Network</strong> — wss://play.eaglercraft.net:25569<br>
+            • <strong style="color:#00d4ff">MC Land</strong> — wss://mc.lc:25569<br>
+            • <strong style="color:#00d4ff">Build The Earth</strong> — wss://server.buildtheearth.net:25569<br>
+            • <strong style="color:#00d4ff">ShieldPVP</strong> — wss://eagler.shieldpvp.com:25569<br><br>
+            
+            <span style="color:#475569">A2Launcher is the best alternative to MessCraft for playing Minecraft in your browser. 
+            It's completely open source, ad-free, and maintained by the community.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Servers Tab -->
+      <div class="left-panel" id="tabServers" style="display:none">
+        <div class="card">
+          <div class="card-title">🌍 Server Browser — Click to Join & Play</div>
+          <div class="server-list" style="max-height:400px">
+            <div class="server-item" onclick="connectServer('wss://eaglercraft.com:25569')">
+              <span class="s-icon">⚔️</span>
+              <div class="s-info">
+                <div class="s-name">Eaglercraft Official</div>
+                <div class="s-ip">wss://eaglercraft.com:25569</div>
+                <div class="s-players">Official Eaglercraft server • Survival • Creative</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://play.eaglercraft.net:25569')">
+              <span class="s-icon">🌐</span>
+              <div class="s-info">
+                <div class="s-name">Eaglercraft Network</div>
+                <div class="s-ip">wss://play.eaglercraft.net:25569</div>
+                <div class="s-players">Multi-mode server • Minigames • Skyblock</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://mc.lc:25569')">
+              <span class="s-icon">🎯</span>
+              <div class="s-info">
+                <div class="s-name">MC Land</div>
+                <div class="s-ip">wss://mc.lc:25569</div>
+                <div class="s-players">Creative • Survival • Free build</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://server.buildtheearth.net:25569')">
+              <span class="s-icon">🌍</span>
+              <div class="s-info">
+                <div class="s-name">Build The Earth</div>
+                <div class="s-ip">wss://server.buildtheearth.net:25569</div>
+                <div class="s-players">Build the Earth in 1:1 scale • Creative</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://eaglecraft.aternos.me:25569')">
+              <span class="s-icon">🔧</span>
+              <div class="s-info">
+                <div class="s-name">Aternos Eaglercraft</div>
+                <div class="s-ip">wss://eaglecraft.aternos.me:25569</div>
+                <div class="s-players">Free server hosting via Aternos</div>
+              </div>
+              <span class="s-status s-offline">● OFFLINE</span>
+            </div>
+            <div class="server-item" onclick="connectServer('wss://eagler.shieldpvp.com:25569')">
+              <span class="s-icon">⚡</span>
+              <div class="s-info">
+                <div class="s-name">ShieldPVP</div>
+                <div class="s-ip">wss://eagler.shieldpvp.com:25569</div>
+                <div class="s-players">PvP • Factions • KitPVP</div>
+              </div>
+              <span class="s-status s-online">● ONLINE</span>
+            </div>
+          </div>
+          
+          <div class="server-custom">
+            <input type="text" id="customServerInput" placeholder="Enter custom server IP (e.g. wss://server.com:25569)" 
+                   onkeydown="if(event.key==='Enter')connectCustom()">
+            <button onclick="connectCustom()">Join Server</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">ℹ️ How to Connect</div>
+          <div style="font-size:12px;color:#64748b;line-height:2">
+            1. <strong style="color:#e8edf2">Click</strong> any server from the list above<br>
+            2. The <strong style="color:#00d4ff">Eaglercraft client</strong> will load in fullscreen<br>
+            3. Choose your <strong style="color:#06d6a0">username</strong> in the game menu<br>
+            4. Click <strong style="color:#00d4ff">"Join Server"</strong> — you're in! 🎮<br><br>
+            <span style="color:#475569">Make sure your browser allows popups and WebSocket connections.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="left-panel" id="tabSettings" style="display:none">
+        <div class="card">
+          <div class="card-title">⚙ Launcher Settings</div>
+          <div class="setting-row">
+            <label>Default Username</label>
+            <input type="text" id="settingsUsername" value="Player" onchange="saveSettings()">
+          </div>
+          <div class="setting-row">
+            <label>Auto-load Eaglercraft</label>
+            <select id="settingsAutoLoad" onchange="saveSettings()">
+              <option value="true">Enabled</option>
+              <option value="false" selected>Disabled</option>
+            </select>
+          </div>
+          <div class="setting-row" style="border-bottom:none">
+            <label>Default Server</label>
+            <input type="text" id="settingsDefaultServer" placeholder="wss://server.com:25569" onchange="saveSettings()">
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🎨 Quick Links</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <button class="play-big" style="padding:8px 16px;font-size:11px" onclick="window.open('https://eaglercraft.com','_blank')">🌐 Eaglercraft</button>
+            <button class="play-big" style="padding:8px 16px;font-size:11px;background:linear-gradient(135deg,#7c3aed,#06d6a0)" onclick="window.open('https://github.com/ayushrajdev9-cmyk/A2Launcher','_blank')">⭐ GitHub Repo</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📜 About</div>
+          <div style="font-size:12px;color:#64748b;line-height:1.8">
+            <strong>A2Launcher</strong> v3.0.0<br><br>
+            Created by <strong style="color:#00d4ff">Ayush Rajdev</strong> & <strong style="color:#7c3aed">Anzar Iqbal</strong><br>
+            Obedullaganj, Madhya Pradesh, India 🇮🇳<br><br>
+            Built with ❤️ using Eaglercraft technology.<br>
+            Minecraft is owned by Mojang Studios.<br>
+            This is an open source community project.
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <div class="card">
+          <div class="card-title">⚡ Quick Play</div>
+          <button class="play-big" style="width:100%;justify-content:center;padding:12px;font-size:14px" onclick="connectServer('wss://eaglercraft.com:25569')">
+            ▶ Join Eaglercraft
+          </button>
+          <div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap">
+            <button class="play-big" style="padding:6px 10px;font-size:10px;flex:1" onclick="connectServer('wss://play.eaglercraft.net:25569')">🌐 Network</button>
+            <button class="play-big" style="padding:6px 10px;font-size:10px;flex:1;background:linear-gradient(135deg,#7c3aed,#06d6a0)" onclick="connectServer('wss://mc.lc:25569')">🎯 MC Land</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📋 Eaglercraft Servers</div>
+          <div class="tip-item">⚔️ <strong>Official:</strong> wss://eaglercraft.com:25569 <span class="cpy" onclick="copyText('wss://eaglercraft.com:25569')">📋</span></div>
+          <div class="tip-item">🌐 <strong>Network:</strong> wss://play.eaglercraft.net:25569 <span class="cpy" onclick="copyText('wss://play.eaglercraft.net:25569')">📋</span></div>
+          <div class="tip-item">🎯 <strong>MC Land:</strong> wss://mc.lc:25569 <span class="cpy" onclick="copyText('wss://mc.lc:25569')">📋</span></div>
+          <div class="tip-item">🌍 <strong>BTE:</strong> wss://server.buildtheearth.net:25569 <span class="cpy" onclick="copyText('wss://server.buildtheearth.net:25569')">📋</span></div>
+          <div class="tip-item">⚡ <strong>ShieldPVP:</strong> wss://eagler.shieldpvp.com:25569 <span class="cpy" onclick="copyText('wss://eagler.shieldpvp.com:25569')">📋</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">💡 Controls</div>
+          <div style="font-size:11px;color:#64748b;line-height:2.2">
+            <strong style="color:#e8edf2">W A S D</strong> — Move<br>
+            <strong style="color:#e8edf2">Space</strong> — Jump<br>
+            <strong style="color:#e8edf2">Shift</strong> — Sneak<br>
+            <strong style="color:#e8edf2">Left Click</strong> — Mine/Attack<br>
+            <strong style="color:#e8edf2">Right Click</strong> — Place/Use<br>
+            <strong style="color:#e8edf2">E</strong> — Inventory<br>
+            <strong style="color:#e8edf2">Esc</strong> — Pause Menu
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">👥 Creators</div>
+          <div style="font-size:12px;color:#94a3b8;line-height:1.8">
+            <strong style="color:#00d4ff">Ayush Rajdev</strong><br>
+            <span style="font-size:10px;color:#475569">Lead Developer</span><br><br>
+            <strong style="color:#7c3aed">Anzar Iqbal</strong><br>
+            <span style="font-size:10px;color:#475569">Co-Developer & Tester</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="statusbar">
+      <span id="statusMsg">🟢 Ready — Click a server to start playing!</span>
+      <span class="creds">A2Launcher by Ayush Rajdev & Anzar Iqbal 🇮🇳</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Splash ───
+setTimeout(() => {
+  document.getElementById('splash').classList.add('hidden');
+  document.getElementById('app').classList.add('visible');
+}, 1800);
+
+// ─── Tab Navigation ───
+function showTab(tab) {
+  document.querySelectorAll('.left-panel').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  
+  const tabs = {home:'tabHome', servers:'tabServers', settings:'tabSettings'};
+  document.getElementById(tabs[tab]).style.display = 'flex';
+  
+  document.querySelectorAll('.nav-item')[['home','servers','settings','github'].indexOf(tab)].classList.add('active');
+}
+
+// ─── Connect to Server ───
+function connectServer(ip) {
+  if(!ip) return;
+  
+  const overlay = document.getElementById('gameOverlay');
+  const frame = document.getElementById('gameFrame');
+  const info = document.getElementById('gameServerInfo');
+  
+  // Show loading
+  document.getElementById('statusTitle').textContent = 'Loading Eaglercraft...';
+  document.getElementById('statusMsg').textContent = '🟡 Loading Minecraft client...';
+  
+  // Use the Eaglercraft client (hosted version)
+  // The Eaglercraft client supports URL parameter: ?server=wss://...
+  const clientUrl = `https://eaglercraft.com/client.html?server=${encodeURIComponent(ip)}`;
+  
+  frame.src = clientUrl;
+  info.textContent = `🟢 Connected to ${ip}`;
+  overlay.classList.add('active');
+  
+  document.getElementById('statusTitle').textContent = 'Playing Minecraft';
+  document.getElementById('statusMsg').textContent = '🟢 Game is running in browser!';
+}
+
+// ─── Connect Custom Server ───
+function connectCustom() {
+  const input = document.getElementById('customServerInput');
+  const ip = input.value.trim();
+  if(!ip) return;
+  
+  // Auto-add wss:// prefix if missing
+  let fullIp = ip;
+  if(!ip.startsWith('wss://') && !ip.startsWith('ws://')) {
+    fullIp = 'wss://' + ip;
+  }
+  // Add port if missing
+  if(!fullIp.includes(':')) {
+    fullIp = fullIp + ':25569';
+  }
+  
+  connectServer(fullIp);
+}
+
+// ─── Exit Game ───
+function exitGame() {
+  const overlay = document.getElementById('gameOverlay');
+  const frame = document.getElementById('gameFrame');
+  frame.src = 'about:blank';
+  overlay.classList.remove('active');
+  document.getElementById('statusTitle').textContent = 'Ready to play';
+  document.getElementById('statusMsg').textContent = '🟢 Ready — Click a server to start playing!';
+}
+
+// ─── Copy to Clipboard ───
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const msg = document.getElementById('statusMsg');
+    const old = msg.textContent;
+    msg.textContent = '✅ Copied to clipboard!';
+    setTimeout(() => msg.textContent = old, 2000);
+  });
+}
+
+// ─── Settings ───
+function saveSettings() {
+  const settings = {
+    username: document.getElementById('settingsUsername').value,
+    autoLoad: document.getElementById('settingsAutoLoad').value,
+    defaultServer: document.getElementById('settingsDefaultServer').value,
+  };
+  localStorage.setItem('a2launcher_settings', JSON.stringify(settings));
+  
+  const msg = document.getElementById('statusMsg');
+  const old = msg.textContent;
+  msg.textContent = '✅ Settings saved!';
+  setTimeout(() => msg.textContent = old, 2000);
+}
+
+function loadSettings() {
+  try {
+    const data = JSON.parse(localStorage.getItem('a2launcher_settings'));
+    if(data) {
+      if(data.username) {
+        document.getElementById('settingsUsername').value = data.username;
+      }
+      if(data.autoLoad) document.getElementById('settingsAutoLoad').value = data.autoLoad;
+      if(data.defaultServer) document.getElementById('settingsDefaultServer').value = data.defaultServer;
+    }
+  } catch(e) {}
+}
+
+// ─── Keyboard shortcut: Escape to exit game ───
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') {
+    const overlay = document.getElementById('gameOverlay');
+    if(overlay.classList.contains('active')) {
+      exitGame();
+    }
+  }
+});
+
+// ─── Init ───
+loadSettings();
+</script>
+</body>
+</html>

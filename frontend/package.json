@@ -1,0 +1,9 @@
+{
+  "name": "a2launcher",
+  "version": "3.0.0",
+  "description": "A2Launcher - Minecraft Web Client by Ayush Rajdev & Anzar Iqbal",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  }
+}
