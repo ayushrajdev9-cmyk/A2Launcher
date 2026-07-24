@@ -7,7 +7,7 @@
 
 ## 🎯 About
 
-**A2Launcher** is a custom **Minecraft Launcher** built from scratch in Python — inspired by TLauncher, SKLauncher, and TL Legacy. It allows you to download, manage, and launch any Minecraft version with full control over RAM, resolution, JVM arguments, and mod loaders.
+**A2Launcher** is a **web-based Minecraft Launcher** with a beautiful modern UI that runs in your browser. Built from scratch in Python — inspired by TLauncher, MessCraft, and SKLauncher. Features a **Server Browser** with one-click join for popular servers like Hypixel, CubeCraft, and HiveMC.
 
 Built with ❤️ by **Ayush Rajdev** and **Anzar Iqbal** for the Minecraft community.
 
@@ -17,16 +17,16 @@ Built with ❤️ by **Ayush Rajdev** and **Anzar Iqbal** for the Minecraft comm
 
 | Feature | Description |
 |---------|-------------|
+| ✅ **Web-Based UI** | Beautiful modern interface runs in your browser |
+| ✅ **Server Browser** | One-click join Hypixel, CubeCraft, HiveMC, MineMenu, Pixelmon + custom servers |
 | ✅ **Version Manager** | Fetch & launch any Minecraft version (release & snapshot) |
 | ✅ **Offline Mode** | Play without a Microsoft/Mojang account |
-| ✅ **RAM Control** | Allocate custom RAM (512MB – 16GB) |
-| ✅ **Custom Resolution** | Set any window size (default: 854×480) |
-| ✅ **JVM Arguments** | Advanced JVM tuning for performance |
-| ✅ **Direct Connect** | Save server IPs for quick joining |
+| ✅ **RAM Control** | Allocate custom RAM (512MB – 16GB) with slider |
+| ✅ **Custom Resolution** | Set any window size |
+| ✅ **Auto-Join Servers** | Click a server → launches Minecraft and auto-connects |
 | ✅ **Mod Loaders** | Quick links to Forge, Fabric, OptiFine |
-| ✅ **Skin Changer** | Built-in skin manager (coming soon) |
 | ✅ **Auto Java Detection** | Finds Java 8, 11, 17, 21 automatically |
-| ✅ **Dark Theme** | Clean, modern dark UI |
+| ✅ **Dark Theme** | Clean, modern dark UI with neon accents |
 | ✅ **Open Source** | 100% free, no ads, no spyware |
 
 ---
