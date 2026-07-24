@@ -13,7 +13,7 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config={darkMode:'class',theme:{extend:{colors:{mc:{50:'#ecfdf5',100:'#d1fae5',200:'#a7f3d0',300:'#6ee7b7',400:'#34d399',500:'#10b981',600:'#059669',700:'#047857',800:'#065f46',900:'#064e3b'},nb:{50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',300:'#cbd5e1',400:'#94a3b8',500:'#64748b',600:'#475569',700:'#334155',800:'#1e293b',900:'#0f172a',950:'#020617'}},fontFamily:{sans:['Inter','ui-sans-serif','system-ui','sans-serif']}}}}
+tailwind.config={darkMode:'class',theme:{extend:{colors:{cb:{50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a'},nx:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}},fontFamily:{sans:['Inter','ui-sans-serif','system-ui','sans-serif']}}}}
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -28,10 +28,9 @@ body{font-family:'Inter',sans-serif}
 /* ── GLASSMORPHISM ── */
 .glass{background:rgba(30,41,59,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .glass-card{background:rgba(30,41,59,.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(148,163,184,.06);transition:all .3s cubic-bezier(.4,0,.2,1)}
-.glass-card:hover{border-color:rgba(16,185,129,.15);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3),0 0 40px rgba(16,185,129,.04)}
+.glass-card:hover{border-color:rgba(99,102,241,.15);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3),0 0 40px rgba(99,102,241,.04)}
 .glass-card-static{background:rgba(30,41,59,.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(148,163,184,.06)}
 .card-border{border:1px solid rgba(148,163,184,.06)}
-.dark .glass{background:rgba(30,41,59,.5)}
 .light .glass{background:rgba(255,255,255,.7)}
 .light .glass-card{background:rgba(255,255,255,.8);border-color:rgba(0,0,0,.06)}
 .light .glass-card-static{background:rgba(255,255,255,.8);border-color:rgba(0,0,0,.06)}
@@ -41,9 +40,9 @@ body{font-family:'Inter',sans-serif}
 #splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f172a;transition:opacity .5s ease,visibility .5s}
 #splash.hide{opacity:0;visibility:hidden;pointer-events:none}
 #splash .bar{width:180px;height:3px;background:rgba(148,163,184,.08);border-radius:10px;overflow:hidden;margin-top:20px}
-#splash .bar div{height:100%;width:0;background:linear-gradient(90deg,#10b981,#3b82f6,#8b5cf6);border-radius:10px;animation:loadBar 1s ease forwards}
+#splash .bar div{height:100%;width:0;background:linear-gradient(90deg,#6366f1,#3b82f6,#06b6d4);border-radius:10px;animation:loadBar 1s ease forwards}
 @keyframes loadBar{0%{width:0%}50%{width:55%}100%{width:100%}}
-.splash-logo{font-size:42px;font-weight:900;background:linear-gradient(135deg,#10b981,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.splash-logo{font-size:42px;font-weight:900;background:linear-gradient(135deg,#6366f1,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* ── CANVAS BG ── */
 #particleCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
@@ -51,13 +50,13 @@ body{font-family:'Inter',sans-serif}
 
 /* ── SIDEBAR ── */
 .sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:500;color:rgba(148,163,184,.7);transition:all .2s ease;cursor:pointer;position:relative}
-.sidebar-link:hover{background:rgba(16,185,129,.06);color:#e2e8f0}
-.sidebar-link.active{background:rgba(16,185,129,.1);color:#10b981}
-.sidebar-link.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:20px;background:#10b981;border-radius:0 4px 4px 0}
+.sidebar-link:hover{background:rgba(99,102,241,.06);color:#e2e8f0}
+.sidebar-link.active{background:rgba(99,102,241,.1);color:#818cf8}
+.sidebar-link.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:20px;background:#818cf8;border-radius:0 4px 4px 0}
 .light .sidebar-link{color:rgba(100,116,139,.7)}
-.light .sidebar-link:hover{background:rgba(16,185,129,.06);color:#1e293b}
-.light .sidebar-link.active{background:rgba(16,185,129,.08);color:#059669}
-.light .sidebar-link.active::before{background:#059669}
+.light .sidebar-link:hover{background:rgba(99,102,241,.06);color:#1e293b}
+.light .sidebar-link.active{background:rgba(99,102,241,.08);color:#4f46e5}
+.light .sidebar-link.active::before{background:#4f46e5}
 
 /* ── TABS ── */
 .tab{display:none;animation:tabIn .3s ease}
@@ -66,25 +65,25 @@ body{font-family:'Inter',sans-serif}
 
 /* ── SERVER CARD ── */
 .server-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.06);cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1)}
-.server-card:hover{background:rgba(16,185,129,.04);border-color:rgba(16,185,129,.12);transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.server-card:hover{background:rgba(99,102,241,.04);border-color:rgba(99,102,241,.12);transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
 .server-card:active{transform:scale(.99)}
 .light .server-card{background:rgba(241,245,249,.5);border-color:rgba(0,0,0,.05)}
-.light .server-card:hover{background:rgba(16,185,129,.04);border-color:rgba(16,185,129,.15)}
+.light .server-card:hover{background:rgba(99,102,241,.04);border-color:rgba(99,102,241,.15)}
 
 /* ── BUTTONS ── */
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:12px;font-size:13px;font-weight:600;background:linear-gradient(135deg,#10b981,#059669);color:#fff;transition:all .25s ease;border:none;cursor:pointer}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(16,185,129,.35)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:12px;font-size:13px;font-weight:600;background:linear-gradient(135deg,#6366f1,#3b82f6);color:#fff;transition:all .25s ease;border:none;cursor:pointer}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(99,102,241,.35)}
 .btn-primary:active{transform:scale(.97)}
 .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:12px;font-size:13px;font-weight:500;background:rgba(148,163,184,.06);color:rgba(148,163,184,.8);transition:all .25s ease;border:1px solid rgba(148,163,184,.08);cursor:pointer}
 .btn-ghost:hover{background:rgba(148,163,184,.1);color:#e2e8f0;border-color:rgba(148,163,184,.15)}
 .btn-ghost:active{transform:scale(.97)}
 
 /* ── TOAST ── */
-#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(16,185,129,.95);backdrop-filter:blur(12px);color:#fff;padding:10px 20px;border-radius:14px;font-size:13px;font-weight:500;z-index:99999;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:0 8px 30px rgba(16,185,129,.3)}
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(99,102,241,.95);backdrop-filter:blur(12px);color:#fff;padding:10px 20px;border-radius:14px;font-size:13px;font-weight:500;z-index:99999;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:0 8px 30px rgba(99,102,241,.3)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 
 /* ── ONLINE DOT ── */
-.online-dot{width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 8px rgba(16,185,129,.5);animation:pulseDot 2s ease-in-out infinite}
+.online-dot{width:7px;height:7px;border-radius:50%;background:#818cf8;display:inline-block;box-shadow:0 0 8px rgba(129,140,248,.5);animation:pulseDot 2s ease-in-out infinite}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 
 /* ── MODE TOGGLE ── */
@@ -97,10 +96,10 @@ body{font-family:'Inter',sans-serif}
 
 /* ── SEARCH ── */
 .search-inp{background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.06);border-radius:12px;padding:9px 14px 9px 34px;font-size:12px;color:rgba(226,232,240,.8);outline:none;transition:all .2s;width:100%;font-family:'Inter',sans-serif}
-.search-inp:focus{border-color:rgba(16,185,129,.25);box-shadow:0 0 0 3px rgba(16,185,129,.06)}
+.search-inp:focus{border-color:rgba(99,102,241,.25);box-shadow:0 0 0 3px rgba(99,102,241,.06)}
 .search-inp::placeholder{color:rgba(148,163,184,.35)}
 .light .search-inp{background:rgba(255,255,255,.7);border-color:rgba(0,0,0,.06);color:#1e293b}
-.light .search-inp:focus{border-color:rgba(16,185,129,.25)}
+.light .search-inp:focus{border-color:rgba(99,102,241,.25)}
 
 /* ── BENTO GRID ── */
 .bento-grid{display:grid;grid-template-columns:1fr;gap:12px}
@@ -121,14 +120,14 @@ body{font-family:'Inter',sans-serif}
 .bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:6px env(safe-area-inset-bottom);background:rgba(15,23,42,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(148,163,184,.06);justify-content:space-around;align-items:center}
 .light .bottom-nav{background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.06)}
 .bnav-link{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border-radius:10px;font-size:9px;font-weight:500;color:rgba(148,163,184,.5);transition:all .2s;cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif}
-.bnav-link.active{color:#10b981}
+.bnav-link.active{color:#818cf8}
 .bnav-link svg{width:20px;height:20px}
 .light .bnav-link{color:rgba(100,116,139,.5)}
-.light .bnav-link.active{color:#059669}
+.light .bnav-link.active{color:#4f46e5}
 
 /* ── MISC ── */
-.gradient-text{background:linear-gradient(135deg,#10b981,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.gradient-text-green{background:linear-gradient(135deg,#10b981,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gradient-text-accent{background:linear-gradient(135deg,#818cf8,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .copy-btn{opacity:0;transition:all .2s}
 .server-card:hover .copy-btn{opacity:1}
 </style>
@@ -154,7 +153,7 @@ body{font-family:'Inter',sans-serif}
   <!-- DESKTOP SIDEBAR -->
   <aside class="sidebar-desktop w-56 flex-shrink-0 glass border-r border-white/[.04] flex flex-col min-h-screen sticky top-0">
     <div class="p-4 border-b border-white/[.04] flex items-center gap-3">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-sm font-black text-black shadow-lg shadow-emerald-500/20">⛏</div>
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-sm font-black text-black shadow-lg shadow-indigo-500/20">⛏</div>
       <div>
         <h1 class="text-base font-extrabold gradient-text">A2Launcher</h1>
         <p class="text-[10px] text-slate-500 font-medium">by Ayush &amp; Anzar</p>
@@ -221,14 +220,14 @@ body{font-family:'Inter',sans-serif}
         <div class="tab active" id="tab-home">
           <!-- HERO -->
           <div class="glass-card-static rounded-2xl p-6 md:p-8 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-cyan-500/5 pointer-events-none"></div>
             <div class="relative z-10">
               <div class="flex items-center gap-2 mb-3">
-                <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/10">🎮 Free Web Client</span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/10">🎮 Free Web Client</span>
                 <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/10">⚡ No Download</span>
               </div>
               <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-2">
-                Play <span class="gradient-text-green">Minecraft</span><br>
+                Play <span class="gradient-text-accent">Minecraft</span><br>
                 <span class="text-slate-400 font-medium">Right in Your Browser</span>
               </h1>
               <p class="text-sm text-slate-500 max-w-lg mb-5 leading-relaxed">
@@ -267,9 +266,9 @@ body{font-family:'Inter',sans-serif}
                 How It Works
               </h2>
               <div class="space-y-3">
-                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span><div><p class="text-sm font-medium text-slate-300">Choose a Server</p><p class="text-xs text-slate-500">Browse our list of Eaglercraft servers</p></div></div>
-                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span><div><p class="text-sm font-medium text-slate-300">Click to Play</p><p class="text-xs text-slate-500">Eaglercraft opens in a new tab</p></div></div>
-                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span><div><p class="text-sm font-medium text-slate-300">Enter Username &amp; Join</p><p class="text-xs text-slate-500">That's it — you're playing Minecraft!</p></div></div>
+                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span><div><p class="text-sm font-medium text-slate-300">Choose a Server</p><p class="text-xs text-slate-500">Browse our list of Eaglercraft servers</p></div></div>
+                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span><div><p class="text-sm font-medium text-slate-300">Click to Play</p><p class="text-xs text-slate-500">Eaglercraft opens in a new tab</p></div></div>
+                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span><div><p class="text-sm font-medium text-slate-300">Enter Username &amp; Join</p><p class="text-xs text-slate-500">That's it — you're playing Minecraft!</p></div></div>
               </div>
             </div>
             <div class="glass-card-static rounded-2xl p-5">
@@ -324,7 +323,7 @@ body{font-family:'Inter',sans-serif}
             <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-5">👥 Meet the Creators</h2>
             <div class="flex flex-col gap-4">
               <div class="flex items-center gap-4 p-4 rounded-xl bg-white/[.02] border border-white/[.04] hover:bg-white/[.03] transition-all">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-lg font-black text-black flex-shrink-0 shadow-lg shadow-emerald-500/20">AR</div>
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-lg font-black text-black flex-shrink-0 shadow-lg shadow-indigo-500/20">AR</div>
                 <div class="flex-1 min-w-0">
                   <h3 class="text-base font-bold text-slate-200">Ayush Rajdev</h3>
                   <p class="text-xs text-slate-500">Lead Developer · India 🇮🇳</p>
@@ -335,7 +334,7 @@ body{font-family:'Inter',sans-serif}
                 </a>
               </div>
               <div class="flex items-center gap-4 p-4 rounded-xl bg-white/[.02] border border-white/[.04] hover:bg-white/[.03] transition-all">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-emerald-400 flex items-center justify-center text-lg font-black text-white flex-shrink-0 shadow-lg shadow-violet-500/20">AI</div>
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-indigo-400 flex items-center justify-center text-lg font-black text-white flex-shrink-0 shadow-lg shadow-violet-500/20">AI</div>
                 <div class="flex-1 min-w-0">
                   <h3 class="text-base font-bold text-slate-200">Anzar Iqbal</h3>
                   <p class="text-xs text-slate-500">Co-Developer</p>
@@ -359,7 +358,7 @@ body{font-family:'Inter',sans-serif}
                 <label class="text-sm text-slate-400">Auto-open Eaglercraft</label>
                 <label class="relative inline-flex items-center cursor-pointer">
                   <input type="checkbox" id="sAutoOpen" class="sr-only peer" onchange="saveSettings()">
-                  <div class="w-10 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                  <div class="w-10 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500"></div>
                 </label>
               </div>
               <div class="flex items-center justify-between">
@@ -403,11 +402,11 @@ body{font-family:'Inter',sans-serif}
         <div class="glass-card-static rounded-2xl p-4">
           <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">👥 Creators</h3>
           <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[.02] mb-2">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-[9px] font-black text-black flex-shrink-0">AR</div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-[9px] font-black text-black flex-shrink-0">AR</div>
             <div class="min-w-0"><p class="text-xs font-semibold text-slate-300">Ayush Rajdev</p><p class="text-[9px] text-slate-600">Lead Developer</p></div>
           </div>
           <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[.02]">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-emerald-400 flex items-center justify-center text-[9px] font-black text-white flex-shrink-0">AI</div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-400 flex items-center justify-center text-[9px] font-black text-white flex-shrink-0">AI</div>
             <div class="min-w-0"><p class="text-xs font-semibold text-slate-300">Anzar Iqbal</p><p class="text-[9px] text-slate-600">Co-Developer</p></div>
           </div>
         </div>
@@ -417,7 +416,7 @@ body{font-family:'Inter',sans-serif}
           <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">📊 Stats</h3>
           <div class="space-y-2 text-xs">
             <div class="flex justify-between"><span class="text-slate-500">Servers</span><span class="text-slate-300 font-medium" id="statServers">5</span></div>
-            <div class="flex justify-between"><span class="text-slate-500">Online</span><span class="text-emerald-400 font-medium" id="statOnline">5</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Online</span><span class="text-indigo-400 font-medium" id="statOnline">5</span></div>
             <div class="flex justify-between"><span class="text-slate-500">Version</span><span class="text-slate-300 font-medium">3.0</span></div>
             <div class="flex justify-between"><span class="text-slate-500">Made in</span><span class="text-slate-300 font-medium">🇮🇳 India</span></div>
           </div>
@@ -508,12 +507,12 @@ function drawParticles(){
     if(p.x<0||p.x>canvas.width)p.vx*=-1
     if(p.y<0||p.y>canvas.height)p.vy*=-1
     ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-    ctx.fillStyle='rgba(16,185,129,.08)';ctx.fill()
+    ctx.fillStyle='rgba(99,102,241,.08)';ctx.fill()
   })
   for(let i=0;i<particles.length;i++){
     for(let j=i+1;j<particles.length;j++){
       const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy)
-      if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(16,185,129,${.04*(1-dist/120)})`;ctx.stroke()}
+      if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(99,102,241,${.04*(1-dist/120)})`;ctx.stroke()}
     }
   }
   requestAnimationFrame(drawParticles)
@@ -594,7 +593,7 @@ function renderServer(server,showCopy=true){
         <div class="text-[11px] text-slate-500 font-mono">${server.ip}</div>
         <div class="text-[10px] text-slate-600 mt-0.5">${server.desc}</div>
       </div>
-      ${showCopy ? `<span class="copy-btn text-[10px] font-medium px-2.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all flex-shrink-0" onclick="event.stopPropagation();copyIP('${server.ip}')">Copy IP</span>` : ''}
+      ${showCopy ? `<span class="copy-btn text-[10px] font-medium px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-all flex-shrink-0" onclick="event.stopPropagation();copyIP('${server.ip}')">Copy IP</span>` : ''}
     </div>
   `
 }
@@ -617,7 +616,7 @@ function renderServers(){
     <div class="flex items-center gap-2 text-[11px] text-slate-500 py-1">
       <span>${s.icon}</span>
       <span class="font-mono flex-1 min-w-0 truncate">${s.ip}</span>
-      <span onclick="copyIP('${s.ip}')" class="cursor-pointer px-1.5 py-0.5 rounded-md text-[9px] font-medium bg-white/[.03] text-emerald-400 hover:bg-white/[.06] transition-all flex-shrink-0">Copy</span>
+      <span onclick="copyIP('${s.ip}')" class="cursor-pointer px-1.5 py-0.5 rounded-md text-[9px] font-medium bg-white/[.03] text-indigo-400 hover:bg-white/[.06] transition-all flex-shrink-0">Copy</span>
     </div>
   `).join('')
   
