@@ -153,13 +153,13 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#fff;overflow:hidde
   <div class="bar"><div class="bar-fill"></div></div>
 </div>
 
-<!-- Game Overlay -->
-<div class="overlay" id="overlay">
+<!-- Game Overlay (hidden by default, shown when using iframe mode) -->
+<div class="overlay" id="overlay" style="display:none">
   <div class="obar">
     <span id="oServ">▶ Connected</span>
     <button class="x" onclick="exitGame()">✕ Exit</button>
   </div>
-  <iframe id="gFrame" allow="clipboard-read;clipboard-write"></iframe>
+  <iframe id="gFrame" allow="clipboard-read;clipboard-write" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
 </div>
 
 <!-- App -->
@@ -432,16 +432,16 @@ function switchTab(name,el){
   setStatus('ready',`Viewing ${name}`);
 }
 
-// Join server
+// Join server - opens Eaglercraft in new tab (works reliably)
 function join(ip){
   if(!ip) return;
-  const overlay=document.getElementById('overlay');
-  const frame=document.getElementById('gFrame');
-  setStatus('loading','Loading Eaglercraft...');
-  frame.src=`https://eaglercraft.com/client.html?server=${encodeURIComponent(ip)}`;
-  document.getElementById('oServ').textContent=`▶ ${ip}`;
-  overlay.classList.add('show');
-  setStatus('running','Playing Minecraft in browser!');
+  setStatus('loading',`🚀 Opening ${ip}...`);
+  
+  // Open Eaglercraft client in new tab with server pre-filled
+  const url = `https://eaglercraft.com/client.html?server=${encodeURIComponent(ip)}`;
+  window.open(url, '_blank');
+  
+  setStatus('running',`✅ Eaglercraft opened! Play in the new tab.`);
 }
 
 function joinCustom(){
