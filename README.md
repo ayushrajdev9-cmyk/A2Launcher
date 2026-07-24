@@ -1,13 +1,13 @@
-# ⛏️ MCLauncher - Minecraft Launcher
+# ⛏️ A2Launcher - Minecraft Launcher
 
 **Created by: [Ayush Rajdev](https://github.com/ayushanzarai) & [Anzar Iqbal](https://github.com/ayushanzarai)**  
-**GitHub:** [minecraftclientbyayushrajdev](https://github.com/ayushrajdev9-cmyk/minecraftclientbyayushrajdev)
+**GitHub:** [A2Launcher](https://github.com/ayushrajdev9-cmyk/A2Launcher)
 
 ---
 
 ## 🎯 About
 
-**MCLauncher** is a custom **Minecraft Launcher** built from scratch in Python — inspired by TLauncher, SKLauncher, and TL Legacy. It allows you to download, manage, and launch any Minecraft version with full control over RAM, resolution, JVM arguments, and mod loaders.
+**A2Launcher** is a custom **Minecraft Launcher** built from scratch in Python — inspired by TLauncher, SKLauncher, and TL Legacy. It allows you to download, manage, and launch any Minecraft version with full control over RAM, resolution, JVM arguments, and mod loaders.
 
 Built with ❤️ by **Ayush Rajdev** and **Anzar Iqbal** for the Minecraft community.
 
@@ -41,8 +41,8 @@ Built with ❤️ by **Ayush Rajdev** and **Anzar Iqbal** for the Minecraft comm
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/ayushrajdev9-cmyk/minecraftclientbyayushrajdev.git
-cd minecraftclientbyayushrajdev
+git clone https://github.com/ayushrajdev9-cmyk/A2Launcher.git
+cd A2Launcher
 
 # Install dependencies
 pip install requests
@@ -79,7 +79,7 @@ python launcher.py config
 
 ```
 ╔═══════════════════════════════════════════╗
-║     ⛏️ MCLauncher v1.0.0                    ║
+║     ⛏️ A2Launcher v1.0.0                    ║
 ║     by Ayush Rajdev & Anzar Iqbal          ║
 ╠═══════════════════════════════════════════╣
 ║  👤 Username: [____________]              ║
@@ -106,7 +106,7 @@ python launcher.py config
 
 ## 🆚 Compared to TLauncher
 
-| Feature | MCLauncher | TLauncher |
+| Feature | A2Launcher | TLauncher |
 |---------|-----------|-----------|
 | Open Source | ✅ Yes | ❌ No |
 | Free | ✅ Yes | ✅ Yes (with ads) |
@@ -141,7 +141,7 @@ Minecraft is a trademark of Mojang Studios. This project is not affiliated with 
 ## ⭐ Support
 
 If you like this launcher, please **star** the repository on GitHub!  
-[⭐ Star on GitHub](https://github.com/ayushrajdev9-cmyk/minecraftclientbyayushrajdev)
+[⭐ Star on GitHub](https://github.com/ayushrajdev9-cmyk/A2Launcher)
 
 ---
 

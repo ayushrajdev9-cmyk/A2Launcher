@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-MCLauncher - Minecraft Launcher by Ayush Rajdev & Anzar Iqbal
-GitHub: https://github.com/ayushrajdev9-cmyk/minecraftclientbyayushrajdev
+A2Launcher - Minecraft Launcher by Ayush Rajdev & Anzar Iqbal
+GitHub: https://github.com/ayushrajdev9-cmyk/A2Launcher
 Description: Custom Minecraft launcher with version management,
              mod loader support, offline login, and game utilities.
              Like TLauncher but built from scratch in Python.
@@ -31,7 +31,7 @@ except ImportError:
 
 VERSION = "1.0.0"
 AUTHORS = "Ayush Rajdev & Anzar Iqbal"
-LAUNCHER_NAME = "MCLauncher"
+LAUNCHER_NAME = "A2Launcher"
 
 BASE_DIR = Path.home() / ".mclauncher"
 VERSIONS_DIR = BASE_DIR / "versions"
@@ -785,7 +785,7 @@ if TK_AVAILABLE:
         
         def open_github(self):
             """Open GitHub repo"""
-            webbrowser.open("https://github.com/ayushrajdev9-cmyk/minecraftclientbyayushrajdev")
+            webbrowser.open("https://github.com/ayushrajdev9-cmyk/A2Launcher")
 
 # ─── CLI Mode ──────────────────────────────────────────────────
 
