@@ -537,7 +537,7 @@ function showToast(msg){
 function launch(ip,name){
   if(!ip)return
   setStatus('Launching '+name+'...')
-  window.open('https://eaglercraft.com/client.html?server='+encodeURIComponent(ip),'_blank')
+  window.open('client.html?server='+encodeURIComponent(ip),'_blank')
   setStatus('Playing on '+name)
 }
 
