@@ -3,501 +3,681 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A2Launcher - Play Minecraft in Browser | Free Web Client by Ayush Rajdev & Anzar Iqbal</title>
-<meta name="description" content="A2Launcher - Free Minecraft web client. Play Minecraft in your browser online without downloading or installing Java. Join Eaglercraft servers instantly.">
-<meta name="keywords" content="Minecraft web client, play Minecraft in browser, Minecraft online, A2Launcher, Ayush Rajdev, Anzar Iqbal, Eaglercraft">
+<title>A2Launcher — Play Minecraft in Browser | Ayush Rajdev & Anzar Iqbal</title>
+<meta name="description" content="Free Minecraft web client. Play in your browser. No Java. No download. Built by Ayush Rajdev and Anzar Iqbal.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://a2launcher.vercel.app">
-<meta property="og:title" content="A2Launcher - Play Minecraft in Browser">
-<meta property="og:description" content="Free Minecraft web client. Play in browser. No download needed.">
-<meta property="og:image" content="https://a2launcher.vercel.app/og.png">
+<meta property="og:title" content="A2Launcher — Play Minecraft in Browser">
+<meta property="og:description" content="Free Minecraft web client. Play in your browser. No Java. No download.">
 <meta name="twitter:card" content="summary_large_image">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{colors:{mc:{50:'#ecfdf5',100:'#d1fae5',200:'#a7f3d0',300:'#6ee7b7',400:'#34d399',500:'#10b981',600:'#059669',700:'#047857',800:'#065f46',900:'#064e3b'},nb:{50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',300:'#cbd5e1',400:'#94a3b8',500:'#64748b',600:'#475569',700:'#334155',800:'#1e293b',900:'#0f172a',950:'#020617'}},fontFamily:{sans:['Inter','ui-sans-serif','system-ui','sans-serif']}}}}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#fff;overflow:hidden;height:100dvh;user-select:none}
+*{margin:0;padding:0;box-sizing:border-box;scrollbar-width:thin}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#2a2a3a;border-radius:10px}
+::-webkit-scrollbar-thumb{background:rgba(148,163,184,.2);border-radius:10px}
 
-/* ─── Splash Loading ─── */
-.splash{position:fixed;inset:0;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity 0.6s}
-.splash.hidden{opacity:0;pointer-events:none}
-.splash .logo-text{font-size:48px;font-weight:900;background:linear-gradient(135deg,#44d62c,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;letter-spacing:-1px}
-.splash p{color:#444;font-size:13px;margin-bottom:28px}
-.splash .bar{width:180px;height:2px;background:#1a1a2a;border-radius:10px;overflow:hidden}
-.splash .bar-fill{height:100%;width:0;background:linear-gradient(90deg,#44d62c,#16a34a);border-radius:10px;animation:fill 1.4s ease forwards}
-@keyframes fill{to{width:100%}}
+/* ── GLASSMORPHISM ── */
+.glass{background:rgba(30,41,59,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.glass-card{background:rgba(30,41,59,.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(148,163,184,.06);transition:all .3s cubic-bezier(.4,0,.2,1)}
+.glass-card:hover{border-color:rgba(16,185,129,.15);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3),0 0 40px rgba(16,185,129,.04)}
+.glass-card-static{background:rgba(30,41,59,.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(148,163,184,.06)}
+.card-border{border:1px solid rgba(148,163,184,.06)}
+.dark .glass{background:rgba(30,41,59,.5)}
+.light .glass{background:rgba(255,255,255,.7)}
+.light .glass-card{background:rgba(255,255,255,.8);border-color:rgba(0,0,0,.06)}
+.light .glass-card-static{background:rgba(255,255,255,.8);border-color:rgba(0,0,0,.06)}
+.light .card-border{border-color:rgba(0,0,0,.06)}
 
-/* ─── Layout ─── */
-.app{display:none;height:100dvh}
-.app.show{display:flex}
-.side{width:210px;background:#0e0e16;border-right:1px solid #181825;display:flex;flex-direction:column;flex-shrink:0}
-.main{flex:1;display:flex;flex-direction:column;min-width:0}
-.top{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:#0e0e16;border-bottom:1px solid #181825;flex-shrink:0}
-.content{flex:1;display:flex;padding:20px 24px;gap:20px;overflow:hidden;min-height:0}
-.left{flex:1;display:flex;flex-direction:column;gap:16px;overflow-y:auto;padding-right:8px}
-.right{width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+/* ── SPLASH ── */
+#splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f172a;transition:opacity .5s ease,visibility .5s}
+#splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+#splash .bar{width:180px;height:3px;background:rgba(148,163,184,.08);border-radius:10px;overflow:hidden;margin-top:20px}
+#splash .bar div{height:100%;width:0;background:linear-gradient(90deg,#10b981,#3b82f6,#8b5cf6);border-radius:10px;animation:loadBar 1s ease forwards}
+@keyframes loadBar{0%{width:0%}50%{width:55%}100%{width:100%}}
+.splash-logo{font-size:42px;font-weight:900;background:linear-gradient(135deg,#10b981,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* ─── Sidebar ─── */
-.side-logo{padding:20px 18px 16px;border-bottom:1px solid #181825}
-.side-logo h1{font-size:20px;font-weight:900;background:linear-gradient(135deg,#44d62c,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px}
-.side-logo span{font-size:10px;color:#333;-webkit-text-fill-color:#333;margin-top:2px;display:block}
+/* ── CANVAS BG ── */
+#particleCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#app{position:relative;z-index:1}
 
-.side-nav{padding:10px 8px;flex:1}
-.side-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#555;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;margin-bottom:1px}
-.side-item:hover{background:#14141f;color:#aaa}
-.side-item.active{background:rgba(68,214,44,0.06);color:#44d62c;border:1px solid rgba(68,214,44,0.1)}
-.side-item .ic{font-size:14px;width:20px;text-align:center}
+/* ── SIDEBAR ── */
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:500;color:rgba(148,163,184,.7);transition:all .2s ease;cursor:pointer;position:relative}
+.sidebar-link:hover{background:rgba(16,185,129,.06);color:#e2e8f0}
+.sidebar-link.active{background:rgba(16,185,129,.1);color:#10b981}
+.sidebar-link.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:20px;background:#10b981;border-radius:0 4px 4px 0}
+.light .sidebar-link{color:rgba(100,116,139,.7)}
+.light .sidebar-link:hover{background:rgba(16,185,129,.06);color:#1e293b}
+.light .sidebar-link.active{background:rgba(16,185,129,.08);color:#059669}
+.light .sidebar-link.active::before{background:#059669}
 
-.side-bottom{padding:14px;border-top:1px solid #181825;font-size:9px;color:#222;text-align:center;line-height:1.6}
+/* ── TABS ── */
+.tab{display:none;animation:tabIn .3s ease}
+.tab.active{display:flex;flex-direction:column;gap:12px}
+@keyframes tabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ─── Topbar ─── */
-.top-left{display:flex;align-items:center;gap:8px}
-.top-left .dot{width:6px;height:6px;border-radius:50%;background:#44d62c;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.top-left h2{font-size:13px;font-weight:500;color:#ccc}
-.top-right{display:flex;align-items:center;gap:10px}
-.top-right a{color:#444;text-decoration:none;font-size:11px;transition:color 0.2s}
-.top-right a:hover{color:#44d62c}
-.top-right .tag{background:#14141f;padding:3px 8px;border-radius:12px;font-size:9px;color:#555;font-weight:600}
+/* ── SERVER CARD ── */
+.server-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(15,23,42,.5);border:1px solid rgba(148,163,184,.06);cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1)}
+.server-card:hover{background:rgba(16,185,129,.04);border-color:rgba(16,185,129,.12);transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.server-card:active{transform:scale(.99)}
+.light .server-card{background:rgba(241,245,249,.5);border-color:rgba(0,0,0,.05)}
+.light .server-card:hover{background:rgba(16,185,129,.04);border-color:rgba(16,185,129,.15)}
 
-/* ─── Hero ─── */
-.hero{background:linear-gradient(135deg,#0e0e16,#14141f);border:1px solid #181825;border-radius:14px;padding:24px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-60%;right:-40%;width:80%;height:80%;background:radial-gradient(circle,rgba(68,214,44,0.03),transparent 70%);pointer-events:none}
-.hero h1{font-size:22px;font-weight:800;margin-bottom:4px}
-.hero p{font-size:12px;color:#666;margin-bottom:16px;line-height:1.5;max-width:480px}
-.hero .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 28px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#44d62c,#16a34a);color:#000;font-family:'Inter',sans-serif;transition:all 0.25s;position:relative;overflow:hidden}
-.hero .btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(68,214,44,0.2)}
-.hero .btn:active{transform:scale(0.98)}
+/* ── BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:12px;font-size:13px;font-weight:600;background:linear-gradient(135deg,#10b981,#059669);color:#fff;transition:all .25s ease;border:none;cursor:pointer}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(16,185,129,.35)}
+.btn-primary:active{transform:scale(.97)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:12px;font-size:13px;font-weight:500;background:rgba(148,163,184,.06);color:rgba(148,163,184,.8);transition:all .25s ease;border:1px solid rgba(148,163,184,.08);cursor:pointer}
+.btn-ghost:hover{background:rgba(148,163,184,.1);color:#e2e8f0;border-color:rgba(148,163,184,.15)}
+.btn-ghost:active{transform:scale(.97)}
 
-/* ─── Card ─── */
-.card{background:#0e0e16;border:1px solid #181825;border-radius:12px;padding:18px;transition:border-color 0.2s}
-.card:hover{border-color:#222}
-.card-hdr{font-size:9px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+/* ── TOAST ── */
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(16,185,129,.95);backdrop-filter:blur(12px);color:#fff;padding:10px 20px;border-radius:14px;font-size:13px;font-weight:500;z-index:99999;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;box-shadow:0 8px 30px rgba(16,185,129,.3)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 
-/* ─── Server List ─── */
-.slist{display:flex;flex-direction:column;gap:3px;max-height:300px;overflow-y:auto;padding-right:4px}
-.serv{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;transition:all 0.15s;background:#0a0a12;border:1px solid #181825}
-.serv:hover{border-color:#44d62c;background:#0f0f1a}
-.serv .ico{font-size:18px;width:30px;text-align:center}
-.serv .info{flex:1;min-width:0}
-.serv .nm{font-size:12px;font-weight:600;color:#ddd}
-.serv .ip{font-size:9px;color:#444;margin-top:1px}
-.serv .stat{font-size:9px;font-weight:600;padding:2px 7px;border-radius:10px}
-.serv .stat.on{color:#44d62c;background:rgba(68,214,44,0.06)}
-.serv .stat.off{color:#ef4444;background:rgba(239,68,68,0.06)}
+/* ── ONLINE DOT ── */
+.online-dot{width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;box-shadow:0 0 8px rgba(16,185,129,.5);animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 
-/* ─── Custom Server Input ─── */
-.cust{display:flex;gap:6px;margin-top:8px}
-.cust input{flex:1;background:#0a0a12;border:1px solid #181825;border-radius:8px;padding:8px 10px;font-size:11px;color:#ddd;outline:none;font-family:'Inter',sans-serif;transition:border 0.2s}
-.cust input:focus{border-color:#44d62c}
-.cust button{background:linear-gradient(135deg,#44d62c,#16a34a);border:none;border-radius:8px;padding:8px 14px;color:#000;font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+/* ── MODE TOGGLE ── */
+.mode-toggle{cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:10px;transition:all .2s;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.06)}
+.mode-toggle:hover{background:rgba(148,163,184,.1);border-color:rgba(148,163,184,.12)}
 
-/* ─── Settings ─── */
-.srow{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #12121c}
-.srow:last-child{border:none}
-.srow label{font-size:11px;color:#777}
-.srow input,.srow select{background:#0a0a12;border:1px solid #181825;border-radius:6px;padding:5px 8px;font-size:11px;color:#ddd;outline:none;font-family:'Inter',sans-serif;width:90px;text-align:center}
-.srow input:focus{border-color:#44d62c}
+/* ── SKELETON ── */
+.skel{background:linear-gradient(90deg,rgba(148,163,184,.04) 25%,rgba(148,163,184,.08) 50%,rgba(148,163,184,.04) 75%);background-size:200% 100%;animation:shimmer 1.5s ease infinite;border-radius:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* ─── Quick Play Buttons ─── */
-.qbtn{display:block;width:100%;padding:8px;margin-bottom:4px;border:none;border-radius:8px;background:#0a0a12;color:#888;font-size:11px;font-weight:500;cursor:pointer;transition:all 0.15s;text-align:left;font-family:'Inter',sans-serif;border:1px solid #181825}
-.qbtn:hover{background:#14141f;color:#ddd;border-color:#44d62c}
+/* ── SEARCH ── */
+.search-inp{background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.06);border-radius:12px;padding:9px 14px 9px 34px;font-size:12px;color:rgba(226,232,240,.8);outline:none;transition:all .2s;width:100%;font-family:'Inter',sans-serif}
+.search-inp:focus{border-color:rgba(16,185,129,.25);box-shadow:0 0 0 3px rgba(16,185,129,.06)}
+.search-inp::placeholder{color:rgba(148,163,184,.35)}
+.light .search-inp{background:rgba(255,255,255,.7);border-color:rgba(0,0,0,.06);color:#1e293b}
+.light .search-inp:focus{border-color:rgba(16,185,129,.25)}
 
-/* ─── Game Overlay ─── */
-.overlay{position:fixed;inset:0;z-index:100;background:#000;display:none;flex-direction:column}
-.overlay.show{display:flex}
-.overlay .obar{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:#0e0e16;border-bottom:1px solid #181825;flex-shrink:0}
-.overlay .obar span{font-size:11px;color:#666}
-.overlay .obar .x{padding:4px 12px;border:none;border-radius:5px;background:#ef4444;color:#fff;font-size:10px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
-.overlay iframe{flex:1;border:none;background:#000}
+/* ── BENTO GRID ── */
+.bento-grid{display:grid;grid-template-columns:1fr;gap:12px}
 
-/* ─── Status Bar ─── */
-.bot{display:flex;align-items:center;justify-content:space-between;padding:7px 24px;background:#0e0e16;border-top:1px solid #181825;font-size:10px;color:#444;flex-shrink:0}
-.bot .cr{color:#222;font-size:9px}
-
-/* ─── Creator Card ─── */
-.creator{padding:0;background:transparent;border:none}
-.creator-box{display:flex;gap:10px;margin-bottom:6px}
-.creator-box:last-child{margin-bottom:0}
-.creator-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.creator-info{flex:1}
-.creator-info .name{font-size:12px;font-weight:600;color:#ddd}
-.creator-info .role{font-size:9px;color:#555}
-
-/* ─── Server Text List ─── */
-.srv-tip{font-size:11px;color:#555;line-height:2;padding:2px 0}
-.srv-tip strong{color:#888}
-.srv-tip .cpy{cursor:pointer;color:#44d62c;font-size:9px;margin-left:4px;padding:1px 5px;border-radius:3px;background:rgba(68,214,44,0.06)}
-.srv-tip .cpy:hover{background:rgba(68,214,44,0.12)}
-
-@media(max-width:720px){
-  .side{width:50px}
-  .side-logo h1{font-size:14px}
-  .side-logo span,.side-item span{display:none}
-  .side-item{justify-content:center;padding:10px}
-  .right{display:none}
-  .content{padding:12px;gap:12px}
-  .hero h1{font-size:18px}
-  .hero p{font-size:11px}
+/* ── RESPONSIVE ── */
+@media(min-width:768px){
+  .bento-grid{grid-template-columns:1fr 1fr}
+  .bento-grid .span-2{grid-column:span 2}
 }
+@media(max-width:767px){
+  .sidebar-desktop{display:none}
+  .bottom-nav{display:flex!important}
+  #app .main-area{flex-direction:column!important}
+  .right-panel{display:none}
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:6px env(safe-area-inset-bottom);background:rgba(15,23,42,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(148,163,184,.06);justify-content:space-around;align-items:center}
+.light .bottom-nav{background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.06)}
+.bnav-link{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border-radius:10px;font-size:9px;font-weight:500;color:rgba(148,163,184,.5);transition:all .2s;cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif}
+.bnav-link.active{color:#10b981}
+.bnav-link svg{width:20px;height:20px}
+.light .bnav-link{color:rgba(100,116,139,.5)}
+.light .bnav-link.active{color:#059669}
+
+/* ── MISC ── */
+.gradient-text{background:linear-gradient(135deg,#10b981,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gradient-text-green{background:linear-gradient(135deg,#10b981,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.copy-btn{opacity:0;transition:all .2s}
+.server-card:hover .copy-btn{opacity:1}
 </style>
 </head>
-<body>
+<body class="bg-nb-950 dark:text-slate-200 text-slate-800">
 
-<!-- Splash -->
-<div class="splash" id="splash">
-  <div class="logo-text">⛏ A2</div>
-  <p>Minecraft Web Client — by Ayush & Anzar</p>
-  <div class="bar"><div class="bar-fill"></div></div>
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">⛏️ A2</div>
+  <div class="text-sm font-medium text-slate-500 mt-2">A2Launcher</div>
+  <div class="text-xs text-slate-600 mt-1">by Ayush Rajdev &amp; Anzar Iqbal</div>
+  <div class="bar"><div></div></div>
 </div>
 
-<!-- Game Overlay -->
-<div class="overlay" id="overlay">
-  <div class="obar">
-    <span id="oServ">▶ Connected</span>
-    <button class="x" onclick="exitGame()">✕ Exit</button>
+<!-- PARTICLE CANVAS -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- TOAST -->
+<div id="toast">✅ Copied to clipboard</div>
+
+<div id="app" class="min-h-screen flex flex-col md:flex-row">
+  
+  <!-- DESKTOP SIDEBAR -->
+  <aside class="sidebar-desktop w-56 flex-shrink-0 glass border-r border-white/[.04] flex flex-col min-h-screen sticky top-0">
+    <div class="p-4 border-b border-white/[.04] flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-sm font-black text-black shadow-lg shadow-emerald-500/20">⛏</div>
+      <div>
+        <h1 class="text-base font-extrabold gradient-text">A2Launcher</h1>
+        <p class="text-[10px] text-slate-500 font-medium">by Ayush &amp; Anzar</p>
+      </div>
+    </div>
+
+    <nav class="p-3 flex-1 flex flex-col gap-1">
+      <span class="sidebar-link active" data-tab="home">
+        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Home
+      </span>
+      <span class="sidebar-link" data-tab="servers">
+        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+        Servers
+      </span>
+      <span class="sidebar-link" data-tab="creators">
+        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+        Creators
+      </span>
+      <span class="sidebar-link" data-tab="settings">
+        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Settings
+      </span>
+    </nav>
+
+    <div class="p-3 border-t border-white/[.04] mt-auto">
+      <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[.02]">
+        <span class="text-[10px] text-slate-600">v3.0</span>
+        <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+        <span class="text-[10px] text-slate-600">🇮🇳 India</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="flex-1 flex flex-col min-w-0 main-area">
+
+    <!-- TOPBAR -->
+    <header class="glass border-b border-white/[.04] flex items-center justify-between px-4 md:px-6 py-3 sticky top-0 z-40">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-2 text-sm font-medium text-slate-400">
+          <span class="online-dot"></span>
+          <span id="statusLabel" class="text-xs">Ready to play</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="https://github.com/ayushrajdev9-cmyk/A2Launcher" target="_blank" class="mode-toggle" title="GitHub">
+          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </a>
+        <span id="modeToggle" class="mode-toggle" title="Toggle theme">
+          <svg class="w-[18px] h-[18px] dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg class="w-[18px] h-[18px] hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </span>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="flex-1 flex gap-4 md:gap-6 p-4 md:p-6 overflow-y-auto pb-20 md:pb-6">
+      
+      <!-- LEFT COLUMN -->
+      <div class="flex-1 min-w-0 flex flex-col gap-4">
+
+        <!-- HOME TAB -->
+        <div class="tab active" id="tab-home">
+          <!-- HERO -->
+          <div class="glass-card-static rounded-2xl p-6 md:p-8 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-blue-500/5 pointer-events-none"></div>
+            <div class="relative z-10">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/10">🎮 Free Web Client</span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/10">⚡ No Download</span>
+              </div>
+              <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-2">
+                Play <span class="gradient-text-green">Minecraft</span><br>
+                <span class="text-slate-400 font-medium">Right in Your Browser</span>
+              </h1>
+              <p class="text-sm text-slate-500 max-w-lg mb-5 leading-relaxed">
+                Free web client by <strong class="text-slate-300">Ayush Rajdev</strong> &amp; <strong class="text-slate-300">Anzar Iqbal</strong>. 
+                No Java. No download. Just click &amp; play on any device.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <button onclick="switchTab('servers')" class="btn-primary">
+                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  Browse Servers
+                </button>
+                <button onclick="quickPlay()" class="btn-ghost">
+                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  Quick Play
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FEATURED SERVERS -->
+          <div class="glass-card-static rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">🔥 Featured Servers</h2>
+              <span class="text-[10px] text-slate-600">5 online</span>
+            </div>
+            <div class="flex flex-col gap-2" id="serverList">
+              <!-- Servers injected by JS -->
+            </div>
+          </div>
+
+          <!-- HOW IT WORKS / TIPS BENTO -->
+          <div class="bento-grid">
+            <div class="glass-card-static rounded-2xl p-5">
+              <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                How It Works
+              </h2>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span><div><p class="text-sm font-medium text-slate-300">Choose a Server</p><p class="text-xs text-slate-500">Browse our list of Eaglercraft servers</p></div></div>
+                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span><div><p class="text-sm font-medium text-slate-300">Click to Play</p><p class="text-xs text-slate-500">Eaglercraft opens in a new tab</p></div></div>
+                <div class="flex items-start gap-3"><span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span><div><p class="text-sm font-medium text-slate-300">Enter Username &amp; Join</p><p class="text-xs text-slate-500">That's it — you're playing Minecraft!</p></div></div>
+              </div>
+            </div>
+            <div class="glass-card-static rounded-2xl p-5">
+              <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                Tips &amp; Tricks
+              </h2>
+              <div class="space-y-2.5">
+                <div class="flex items-center gap-3 text-sm"><span class="w-5 h-5 rounded-md bg-slate-800/50 text-slate-400 text-[10px] font-bold flex items-center justify-center">Esc</span><span class="text-xs text-slate-400">Exit / Pause</span></div>
+                <div class="flex items-center gap-3 text-sm"><span class="w-5 h-5 rounded-md bg-slate-800/50 text-slate-400 text-[10px] font-bold flex items-center justify-center">F11</span><span class="text-xs text-slate-400">Toggle fullscreen</span></div>
+                <div class="flex items-center gap-3 text-sm"><span class="w-5 h-5 rounded-md bg-slate-800/50 text-slate-400 text-[10px] font-bold flex items-center justify-center">E</span><span class="text-xs text-slate-400">Open inventory</span></div>
+                <div class="flex items-center gap-3 text-sm"><span class="w-5 h-5 rounded-md bg-slate-800/50 text-slate-400 text-[10px] font-bold flex items-center justify-center">📱</span><span class="text-xs text-slate-400">Works on mobile too</span></div>
+                <div class="flex items-center gap-3 text-sm"><span class="w-5 h-5 rounded-md bg-slate-800/50 text-slate-400 text-[10px] font-bold flex items-center justify-center">🎮</span><span class="text-xs text-slate-400">Zero ads · 100% free</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SERVERS TAB -->
+        <div class="tab" id="tab-servers">
+          <div class="glass-card-static rounded-2xl p-5">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+              <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">🌍 All Servers</h2>
+              <div class="relative w-full md:w-56">
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" id="serverSearch" class="search-inp" placeholder="Search servers..." oninput="filterServers()">
+              </div>
+            </div>
+            <div class="flex flex-col gap-2" id="serverListAll">
+              <!-- All servers injected by JS -->
+            </div>
+          </div>
+
+          <div class="glass-card-static rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">🔗 Custom Server</h2>
+            </div>
+            <div class="flex gap-2">
+              <input type="text" id="customIp" placeholder="wss://server.com:25569" class="search-inp flex-1" onkeydown="if(event.key==='Enter')joinCustom()">
+              <button onclick="joinCustom()" class="btn-primary whitespace-nowrap">
+                <svg class="w-[16px] h-[16px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Join
+              </button>
+            </div>
+            <p class="text-[10px] text-slate-600 mt-2">Enter any Eaglercraft-compatible WebSocket server address</p>
+          </div>
+        </div>
+
+        <!-- CREATORS TAB -->
+        <div class="tab" id="tab-creators">
+          <div class="glass-card-static rounded-2xl p-6">
+            <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-5">👥 Meet the Creators</h2>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-white/[.02] border border-white/[.04] hover:bg-white/[.03] transition-all">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-lg font-black text-black flex-shrink-0 shadow-lg shadow-emerald-500/20">AR</div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-base font-bold text-slate-200">Ayush Rajdev</h3>
+                  <p class="text-xs text-slate-500">Lead Developer · India 🇮🇳</p>
+                  <p class="text-[11px] text-slate-600 mt-1">Creator of A2Launcher &amp; cybersecurity tools. Building the future of web-based gaming.</p>
+                </div>
+                <a href="https://github.com/ayushrajdev9-cmyk" target="_blank" class="btn-ghost text-xs px-3 py-1.5">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+              </div>
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-white/[.02] border border-white/[.04] hover:bg-white/[.03] transition-all">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-emerald-400 flex items-center justify-center text-lg font-black text-white flex-shrink-0 shadow-lg shadow-violet-500/20">AI</div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-base font-bold text-slate-200">Anzar Iqbal</h3>
+                  <p class="text-xs text-slate-500">Co-Developer</p>
+                  <p class="text-[11px] text-slate-600 mt-1">Co-creator of A2Launcher. Passionate about technology and open-source.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="tab" id="tab-settings">
+          <div class="glass-card-static rounded-2xl p-5">
+            <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">⚙ Preferences</h2>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <label class="text-sm text-slate-400">Default Username</label>
+                <input type="text" id="sUsername" value="Player" class="search-inp w-32 text-center" onchange="saveSettings()">
+              </div>
+              <div class="flex items-center justify-between">
+                <label class="text-sm text-slate-400">Auto-open Eaglercraft</label>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="sAutoOpen" class="sr-only peer" onchange="saveSettings()">
+                  <div class="w-10 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+              </div>
+              <div class="flex items-center justify-between">
+                <label class="text-sm text-slate-400">Default Server</label>
+                <input type="text" id="sDefaultServer" placeholder="wss://..." class="search-inp w-40 text-center" onchange="saveSettings()">
+              </div>
+            </div>
+          </div>
+          <div class="glass-card-static rounded-2xl p-5">
+            <h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">🔗 Quick Links</h2>
+            <div class="flex flex-wrap gap-2">
+              <a href="https://eaglercraft.com" target="_blank" class="btn-ghost text-xs">🌐 Eaglercraft</a>
+              <a href="https://github.com/ayushrajdev9-cmyk/A2Launcher" target="_blank" class="btn-ghost text-xs">⭐ GitHub Repo</a>
+              <a href="https://github.com/ayushrajdev9-cmyk" target="_blank" class="btn-ghost text-xs">👤 Ayush's GitHub</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT PANEL (desktop only) -->
+      <aside class="right-panel w-64 flex-shrink-0 flex flex-col gap-4">
+        
+        <!-- QUICK PLAY -->
+        <div class="glass-card-static rounded-2xl p-4">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">⚡ Quick Play</h3>
+          <div class="flex flex-col gap-1" id="quickPlayList">
+            <!-- injected by JS -->
+          </div>
+        </div>
+
+        <!-- SERVER IPS -->
+        <div class="glass-card-static rounded-2xl p-4">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">📋 Server IPs</h3>
+          <div class="flex flex-col gap-2" id="serverIpsList">
+            <!-- injected by JS -->
+          </div>
+        </div>
+
+        <!-- CREATORS MINI -->
+        <div class="glass-card-static rounded-2xl p-4">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">👥 Creators</h3>
+          <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[.02] mb-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center text-[9px] font-black text-black flex-shrink-0">AR</div>
+            <div class="min-w-0"><p class="text-xs font-semibold text-slate-300">Ayush Rajdev</p><p class="text-[9px] text-slate-600">Lead Developer</p></div>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[.02]">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-emerald-400 flex items-center justify-center text-[9px] font-black text-white flex-shrink-0">AI</div>
+            <div class="min-w-0"><p class="text-xs font-semibold text-slate-300">Anzar Iqbal</p><p class="text-[9px] text-slate-600">Co-Developer</p></div>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="glass-card-static rounded-2xl p-4">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">📊 Stats</h3>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between"><span class="text-slate-500">Servers</span><span class="text-slate-300 font-medium" id="statServers">5</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Online</span><span class="text-emerald-400 font-medium" id="statOnline">5</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Version</span><span class="text-slate-300 font-medium">3.0</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Made in</span><span class="text-slate-300 font-medium">🇮🇳 India</span></div>
+          </div>
+        </div>
+
+        <!-- TIPS -->
+        <div class="glass-card-static rounded-2xl p-4">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">💡 Tip</h3>
+          <p class="text-xs text-slate-500 leading-relaxed" id="tipText">Press <strong class="text-slate-300">F11</strong> for fullscreen gaming experience!</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="glass border-t border-white/[.04] px-4 md:px-6 py-3 flex items-center justify-between text-[11px] text-slate-600 flex-shrink-0">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1">
+          <span class="online-dot"></span>
+          <span id="footerStatus">Ready</span>
+        </span>
+        <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+        <span>🇮🇳 Made in India</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span>© 2026 A2Launcher</span>
+        <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+        <span>by Ayush Rajdev &amp; Anzar Iqbal</span>
+      </div>
+    </footer>
   </div>
-  <iframe id="gFrame" allow="clipboard-read;clipboard-write"></iframe>
 </div>
 
-<!-- App -->
-<div class="app" id="app">
-  <!-- Sidebar -->
-  <div class="side">
-    <div class="side-logo">
-      <h1>⛏ A2</h1>
-      <span>by Ayush & Anzar</span>
-    </div>
-    <div class="side-nav">
-      <div class="side-item active" onclick="switchTab('home',this)"><span class="ic">🏠</span><span>Home</span></div>
-      <div class="side-item" onclick="switchTab('servers',this)"><span class="ic">🌍</span><span>Servers</span></div>
-      <div class="side-item" onclick="switchTab('settings',this)"><span class="ic">⚙</span><span>Settings</span></div>
-      <div class="side-item" onclick="window.open('https://github.com/ayushrajdev9-cmyk/A2Launcher')"><span class="ic">⭐</span><span>GitHub</span></div>
-    </div>
-    <div class="side-bottom">A2Launcher v3.0<br>Made in 🇮🇳</div>
-  </div>
-
-  <!-- Main -->
-  <div class="main">
-    <div class="top">
-      <div class="top-left">
-        <div class="dot"></div>
-        <h2 id="statusTitle">Ready</h2>
-      </div>
-      <div class="top-right">
-        <a href="https://github.com/ayushrajdev9-cmyk/A2Launcher" target="_blank">★ GitHub</a>
-        <span class="tag">v3.0</span>
-      </div>
-    </div>
-
-    <div class="content">
-      <!-- Left Content -->
-      <div class="left">
-        <!-- Home Tab -->
-        <div id="tabHome">
-          <div class="hero">
-            <h1>Play Minecraft in Your Browser</h1>
-            <p>No download. No Java. No install. Just open this page, click a server, and start playing. Works on any device.</p>
-            <button class="btn" onclick="switchTab('servers',document.querySelector('.side-item:nth-child(2)'))">▶ Browse Servers & Play</button>
-          </div>
-
-          <div class="card">
-            <div class="card-hdr">🔥 Quick Join — Popular Servers</div>
-            <div class="slist">
-              <div class="serv" onclick="join('wss://eaglercraft.com:25569')">
-                <span class="ico">⚔️</span>
-                <div class="info">
-                  <div class="nm">Eaglercraft Official</div>
-                  <div class="ip">wss://eaglercraft.com:25569</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://play.eaglercraft.net:25569')">
-                <span class="ico">🌐</span>
-                <div class="info">
-                  <div class="nm">Eaglercraft Network</div>
-                  <div class="ip">wss://play.eaglercraft.net:25569</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://mc.lc:25569')">
-                <span class="ico">🎯</span>
-                <div class="info">
-                  <div class="nm">MC Land</div>
-                  <div class="ip">wss://mc.lc:25569</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://server.buildtheearth.net:25569')">
-                <span class="ico">🌍</span>
-                <div class="info">
-                  <div class="nm">Build The Earth</div>
-                  <div class="ip">wss://server.buildtheearth.net:25569</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://eagler.shieldpvp.com:25569')">
-                <span class="ico">⚡</span>
-                <div class="info">
-                  <div class="nm">ShieldPVP</div>
-                  <div class="ip">wss://eagler.shieldpvp.com:25569</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-hdr">ℹ️ How It Works</div>
-            <div style="font-size:11px;color:#666;line-height:1.8">
-              <strong style="color:#aaa">A2Launcher</strong> uses <strong style="color:#44d62c">Eaglercraft</strong> to run Minecraft directly in your browser via WebGL + WebSocket.<br><br>
-              ❶ Click any server → ❷ Eaglercraft loads → ❸ Enter a username → ❹ Click Join → 🎮 Play!<br><br>
-              <span style="color:#444">No installation needed. Works on PC, tablet, and phone. Free forever.</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Servers Tab -->
-        <div id="tabServers" style="display:none">
-          <div class="card">
-            <div class="card-hdr">🌍 All Servers — Click to Join</div>
-            <div class="slist" style="max-height:450px">
-              <div class="serv" onclick="join('wss://eaglercraft.com:25569')">
-                <span class="ico">⚔️</span>
-                <div class="info">
-                  <div class="nm">Eaglercraft Official</div>
-                  <div class="ip">wss://eaglercraft.com:25569</div>
-                  <div style="font-size:9px;color:#555;margin-top:1px">Official Eaglercraft server • Survival • Creative • Minigames</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://play.eaglercraft.net:25569')">
-                <span class="ico">🌐</span>
-                <div class="info">
-                  <div class="nm">Eaglercraft Network</div>
-                  <div class="ip">wss://play.eaglercraft.net:25569</div>
-                  <div style="font-size:9px;color:#555;margin-top:1px">Multi-mode • Skyblock • Survival • Creative • Minigames</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://mc.lc:25569')">
-                <span class="ico">🎯</span>
-                <div class="info">
-                  <div class="nm">MC Land</div>
-                  <div class="ip">wss://mc.lc:25569</div>
-                  <div style="font-size:9px;color:#555;margin-top:1px">Free build • Creative • Survival economy</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://server.buildtheearth.net:25569')">
-                <span class="ico">🌍</span>
-                <div class="info">
-                  <div class="nm">Build The Earth</div>
-                  <div class="ip">wss://server.buildtheearth.net:25569</div>
-                  <div style="font-size:9px;color:#555;margin-top:1px">1:1 Earth scale build project • Creative mode</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-              <div class="serv" onclick="join('wss://eagler.shieldpvp.com:25569')">
-                <span class="ico">⚡</span>
-                <div class="info">
-                  <div class="nm">ShieldPVP</div>
-                  <div class="ip">wss://eagler.shieldpvp.com:25569</div>
-                  <div style="font-size:9px;color:#555;margin-top:1px">PvP • Factions • KitPVP • Practice</div>
-                </div>
-                <span class="stat on">● Online</span>
-              </div>
-            </div>
-            <div class="cust">
-              <input type="text" id="srvInput" placeholder="wss://server.com:25569" onkeydown="if(event.key==='Enter')joinCustom()">
-              <button onclick="joinCustom()">Join</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-hdr">🔧 Controls</div>
-            <div style="font-size:11px;color:#666;line-height:2.2">
-              <strong style="color:#aaa">W A S D</strong> — Move &nbsp;|&nbsp; <strong style="color:#aaa">Space</strong> — Jump<br>
-              <strong style="color:#aaa">Shift</strong> — Sneak &nbsp;|&nbsp; <strong style="color:#aaa">Left Click</strong> — Mine/Attack<br>
-              <strong style="color:#aaa">Right Click</strong> — Place/Use &nbsp;|&nbsp; <strong style="color:#aaa">E</strong> — Inventory<br>
-              <strong style="color:#aaa">Esc</strong> — Pause &nbsp;|&nbsp; <strong style="color:#aaa">F11</strong> — Fullscreen
-            </div>
-          </div>
-        </div>
-
-        <!-- Settings Tab -->
-        <div id="tabSettings" style="display:none">
-          <div class="card">
-            <div class="card-hdr">⚙ Settings</div>
-            <div class="srow">
-              <label>Username</label>
-              <input type="text" id="setName" value="Player" onchange="saveSet()">
-            </div>
-            <div class="srow">
-              <label>Auto-load client</label>
-              <select id="setAuto" onchange="saveSet()">
-                <option value="true">On</option>
-                <option value="false" selected>Off</option>
-              </select>
-            </div>
-            <div class="srow" style="border:none">
-              <label>Default server</label>
-              <input type="text" id="setSrv" placeholder="wss://..." onchange="saveSet()">
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-hdr">🎨 Quick Links</div>
-            <div style="display:flex;flex-wrap:wrap;gap:5px">
-              <button class="btn" style="padding:7px 14px;font-size:10px" onclick="window.open('https://eaglercraft.com')">🌐 Eaglercraft</button>
-              <button class="btn" style="padding:7px 14px;font-size:10px;background:linear-gradient(135deg,#7c3aed,#44d62c)" onclick="window.open('https://github.com/ayushrajdev9-cmyk/A2Launcher')">⭐ GitHub</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Panel -->
-      <div class="right">
-        <div class="card">
-          <div class="card-hdr">⚡ Quick Play</div>
-          <button class="qbtn" onclick="join('wss://eaglercraft.com:25569')">⚔️ Eaglercraft Official</button>
-          <button class="qbtn" onclick="join('wss://play.eaglercraft.net:25569')">🌐 Eaglercraft Network</button>
-          <button class="qbtn" onclick="join('wss://mc.lc:25569')">🎯 MC Land</button>
-          <button class="qbtn" onclick="join('wss://server.buildtheearth.net:25569')">🌍 Build The Earth</button>
-          <button class="qbtn" onclick="join('wss://eagler.shieldpvp.com:25569')">⚡ ShieldPVP</button>
-        </div>
-
-        <div class="card">
-          <div class="card-hdr">📋 Server IPs</div>
-          <div class="srv-tip">⚔️ <strong>Official:</strong> wss://eaglercraft.com:25569 <span class="cpy" onclick="copy('wss://eaglercraft.com:25569')">Copy</span></div>
-          <div class="srv-tip">🌐 <strong>Network:</strong> wss://play.eaglercraft.net:25569 <span class="cpy" onclick="copy('wss://play.eaglercraft.net:25569')">Copy</span></div>
-          <div class="srv-tip">🎯 <strong>MC Land:</strong> wss://mc.lc:25569 <span class="cpy" onclick="copy('wss://mc.lc:25569')">Copy</span></div>
-          <div class="srv-tip">🌍 <strong>BTE:</strong> wss://server.buildtheearth.net:25569 <span class="cpy" onclick="copy('wss://server.buildtheearth.net:25569')">Copy</span></div>
-          <div class="srv-tip">⚡ <strong>Shield:</strong> wss://eagler.shieldpvp.com:25569 <span class="cpy" onclick="copy('wss://eagler.shieldpvp.com:25569')">Copy</span></div>
-        </div>
-
-        <div class="creator">
-          <div class="card-hdr" style="margin-bottom:8px;padding-left:0">👥 Creators</div>
-          <div class="creator-box">
-            <div class="creator-avatar" style="background:linear-gradient(135deg,#44d62c,#16a34a);color:#000">AR</div>
-            <div class="creator-info">
-              <div class="name">Ayush Rajdev</div>
-              <div class="role">Lead Developer</div>
-            </div>
-          </div>
-          <div class="creator-box">
-            <div class="creator-avatar" style="background:linear-gradient(135deg,#7c3aed,#44d62c);color:#fff">AI</div>
-            <div class="creator-info">
-              <div class="name">Anzar Iqbal</div>
-              <div class="role">Co-Developer</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-hdr">💡 Tips</div>
-          <div style="font-size:10px;color:#555;line-height:1.8">
-            • Use <strong style="color:#888">Esc</strong> to exit game<br>
-            • <strong style="color:#888">F11</strong> for fullscreen<br>
-            • Works on mobile too 📱<br>
-            • Open source &amp; free<br>
-            • Made in India 🇮🇳
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bot">
-      <span id="statusMsg">🟢 Ready — Click any server to play!</span>
-      <span class="cr">A2Launcher by Ayush Rajdev &amp; Anzar Iqbal 🇮🇳</span>
-    </div>
-  </div>
-</div>
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav">
+  <button class="bnav-link active" data-tab="home">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+    <span>Home</span>
+  </button>
+  <button class="bnav-link" data-tab="servers">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+    <span>Servers</span>
+  </button>
+  <button class="bnav-link" data-tab="creators">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+    <span>Creators</span>
+  </button>
+  <button class="bnav-link" data-tab="settings">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    <span>Settings</span>
+  </button>
+</nav>
 
 <script>
-// Splash
-setTimeout(()=>{
-  document.getElementById('splash').classList.add('hidden');
-  document.getElementById('app').classList.add('show');
-},1600);
+// ── SERVER DATA ──
+const SERVERS = [
+  {id:'official',name:'Eaglercraft Official',ip:'wss://eaglercraft.com:25569',icon:'⚔️',desc:'Survival · Creative · Minigames',category:'featured'},
+  {id:'network',name:'Eaglercraft Network',ip:'wss://play.eaglercraft.net:25569',icon:'🌐',desc:'Skyblock · Survival · Minigames',category:'featured'},
+  {id:'mcland',name:'MC Land',ip:'wss://mc.lc:25569',icon:'🎯',desc:'Creative · Survival · Free build',category:'featured'},
+  {id:'bte',name:'Build The Earth',ip:'wss://server.buildtheearth.net:25569',icon:'🌍',desc:'1:1 Earth scale · Creative',category:'featured'},
+  {id:'shield',name:'ShieldPVP',ip:'wss://eagler.shieldpvp.com:25569',icon:'⚡',desc:'PvP · Factions · KitPVP',category:'featured'},
+]
 
-// Tab switching
-function switchTab(name,el){
-  document.querySelectorAll('.left>div').forEach(d=>d.style.display='none');
-  document.querySelectorAll('.side-item').forEach(i=>i.classList.remove('active'));
-  document.getElementById('tab'+name.charAt(0).toUpperCase()+name.slice(1)).style.display='block';
-  if(el) el.classList.add('active');
-  setStatus('ready',`Viewing ${name}`);
+// ── THEME ──
+let isDark = localStorage.getItem('a2theme') !== 'light'
+document.documentElement.classList.toggle('dark',isDark)
+document.documentElement.classList.toggle('light',!isDark)
+document.getElementById('modeToggle').onclick=()=>{
+  isDark=!isDark
+  document.documentElement.classList.toggle('dark',isDark)
+  document.documentElement.classList.toggle('light',!isDark)
+  localStorage.setItem('a2theme',isDark?'dark':'light')
 }
 
-// Join server
-function join(ip){
-  if(!ip) return;
-  const overlay=document.getElementById('overlay');
-  const frame=document.getElementById('gFrame');
-  setStatus('loading','Loading Eaglercraft...');
-  frame.src=`https://eaglercraft.com/client.html?server=${encodeURIComponent(ip)}`;
-  document.getElementById('oServ').textContent=`▶ ${ip}`;
-  overlay.classList.add('show');
-  setStatus('running','Playing Minecraft in browser!');
+// ── SPLASH ──
+setTimeout(()=>{document.getElementById('splash').classList.add('hide')},1200)
+
+// ── PARTICLES ──
+const canvas=document.getElementById('particleCanvas'),ctx=canvas.getContext('2d')
+let particles=[]
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=document.body.scrollHeight}
+resizeCanvas()
+window.addEventListener('resize',()=>{resizeCanvas();particles=particles.map(p=>({...p,x:Math.random()*canvas.width,y:Math.random()*canvas.height}))})
+for(let i=0;i<40;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+1})}
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height)
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy
+    if(p.x<0||p.x>canvas.width)p.vx*=-1
+    if(p.y<0||p.y>canvas.height)p.vy*=-1
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+    ctx.fillStyle='rgba(16,185,129,.08)';ctx.fill()
+  })
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy)
+      if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(16,185,129,${.04*(1-dist/120)})`;ctx.stroke()}
+    }
+  }
+  requestAnimationFrame(drawParticles)
+}
+drawParticles()
+
+// ── STATUS ──
+function setStatus(text,type){
+  const st=document.getElementById('statusLabel'),fs=document.getElementById('footerStatus')
+  st.textContent=text;fs.textContent=text
+}
+setStatus('Ready to play')
+
+// ── TOAST ──
+function showToast(msg){
+  const t=document.getElementById('toast')
+  t.innerHTML='✅ '+msg;t.classList.add('show')
+  setTimeout(()=>t.classList.remove('show'),2200)
+}
+
+// ── LAUNCH ──
+function launch(ip,name){
+  if(!ip)return
+  setStatus('Launching '+name+'...')
+  window.open('https://eaglercraft.com/client.html?server='+encodeURIComponent(ip),'_blank')
+  setStatus('Playing on '+name)
+}
+
+function quickPlay(){
+  launch(SERVERS[0].ip,SERVERS[0].name)
 }
 
 function joinCustom(){
-  const input=document.getElementById('srvInput');
-  let ip=input.value.trim();
-  if(!ip) return;
-  if(!ip.startsWith('ws')) ip='wss://'+ip;
-  if(!ip.includes(':')) ip+=':25569';
-  join(ip);
+  let ip=document.getElementById('customIp').value.trim()
+  if(!ip){showToast('Enter a server address');return}
+  if(!ip.startsWith('ws'))ip='wss://'+ip
+  if(!ip.includes(':'))ip+=':25569'
+  launch(ip,ip)
 }
 
-function exitGame(){
-  document.getElementById('overlay').classList.remove('show');
-  document.getElementById('gFrame').src='about:blank';
-  setStatus('ready','Ready — Click a server to play!');
+function copyIP(ip){
+  navigator.clipboard.writeText(ip).then(()=>showToast('Copied to clipboard'))
 }
 
-function copy(t){
-  navigator.clipboard.writeText(t).then(()=>{
-    const m=document.getElementById('statusMsg');
-    const o=m.textContent;
-    m.textContent='✅ Copied!';
-    setTimeout(()=>m.textContent=o,1500);
-  });
+// ── SIDEBAR / TAB SWITCHING ──
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'))
+  document.querySelectorAll('.bnav-link').forEach(l=>l.classList.remove('active'))
+  
+  const tab=document.getElementById('tab-'+name)
+  if(tab)tab.classList.add('active')
+  
+  const sl=document.querySelector(`.sidebar-link[data-tab="${name}"]`)
+  if(sl)sl.classList.add('active')
+  
+  const bl=document.querySelector(`.bnav-link[data-tab="${name}"]`)
+  if(bl)bl.classList.add('active')
 }
 
-function setStatus(type,msg){
-  document.getElementById('statusTitle').textContent=msg;
-  document.getElementById('statusMsg').textContent={'ready':'🟢','loading':'🟡','running':'🟢','error':'🔴'}[type]+' '+msg;
+document.querySelectorAll('.sidebar-link').forEach(el=>{
+  el.addEventListener('click',()=>switchTab(el.dataset.tab))
+})
+document.querySelectorAll('.bnav-link').forEach(el=>{
+  el.addEventListener('click',()=>switchTab(el.dataset.tab))
+})
+
+// ── RENDER SERVERS ──
+function renderServer(server,showCopy=true){
+  return `
+    <div class="server-card" onclick="launch('${server.ip}','${server.name}')">
+      <span class="text-lg w-10 h-10 flex items-center justify-center rounded-xl bg-white/[.02] text-lg flex-shrink-0">${server.icon}</span>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-semibold text-slate-200">${server.name}</span>
+          <span class="online-dot"></span>
+        </div>
+        <div class="text-[11px] text-slate-500 font-mono">${server.ip}</div>
+        <div class="text-[10px] text-slate-600 mt-0.5">${server.desc}</div>
+      </div>
+      ${showCopy ? `<span class="copy-btn text-[10px] font-medium px-2.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all flex-shrink-0" onclick="event.stopPropagation();copyIP('${server.ip}')">Copy IP</span>` : ''}
+    </div>
+  `
 }
 
-// Settings
-function saveSet(){
-  const s={name:document.getElementById('setName').value,auto:document.getElementById('setAuto').value,srv:document.getElementById('setSrv').value};
-  localStorage.setItem('a2set',JSON.stringify(s));
-  const m=document.getElementById('statusMsg');const o=m.textContent;
-  m.textContent='✅ Saved!';setTimeout(()=>m.textContent=o,1500);
+function renderServers(){
+  const list=document.getElementById('serverList')
+  const listAll=document.getElementById('serverListAll')
+  const qp=document.getElementById('quickPlayList')
+  const ips=document.getElementById('serverIpsList')
+  
+  list.innerHTML=SERVERS.map(s=>renderServer(s,true)).join('')
+  listAll.innerHTML=SERVERS.map(s=>renderServer(s,true)).join('')
+  qp.innerHTML=SERVERS.map(s=>`
+    <button onclick="launch('${s.ip}','${s.name}')" class="flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs text-slate-500 hover:bg-white/[.03] hover:text-slate-300 transition-all w-full text-left border-none cursor-pointer font-['Inter']">
+      <span>${s.icon}</span>
+      <span>${s.name}</span>
+    </button>
+  `).join('')
+  ips.innerHTML=SERVERS.map(s=>`
+    <div class="flex items-center gap-2 text-[11px] text-slate-500 py-1">
+      <span>${s.icon}</span>
+      <span class="font-mono flex-1 min-w-0 truncate">${s.ip}</span>
+      <span onclick="copyIP('${s.ip}')" class="cursor-pointer px-1.5 py-0.5 rounded-md text-[9px] font-medium bg-white/[.03] text-emerald-400 hover:bg-white/[.06] transition-all flex-shrink-0">Copy</span>
+    </div>
+  `).join('')
+  
+  document.getElementById('statServers').textContent=SERVERS.length
+  document.getElementById('statOnline').textContent=SERVERS.length
 }
 
-function loadSet(){
+renderServers()
+
+// ── SEARCH ──
+function filterServers(){
+  const q=document.getElementById('serverSearch').value.toLowerCase().trim()
+  const filtered=SERVERS.filter(s=>s.name.toLowerCase().includes(q)||s.ip.toLowerCase().includes(q)||s.desc.toLowerCase().includes(q))
+  document.getElementById('serverListAll').innerHTML=filtered.length
+    ? filtered.map(s=>renderServer(s,true)).join('')
+    : '<div class="text-center py-8 text-slate-600 text-sm">No servers found 😔</div>'
+}
+
+// ── SETTINGS ──
+function saveSettings(){
+  const s={u:document.getElementById('sUsername').value,a:document.getElementById('sAutoOpen').checked?1:0,d:document.getElementById('sDefaultServer').value}
+  localStorage.setItem('a2settings',JSON.stringify(s))
+  showToast('Settings saved')
+}
+
+function loadSettings(){
   try{
-    const d=JSON.parse(localStorage.getItem('a2set'));
+    const d=JSON.parse(localStorage.getItem('a2settings'))
     if(d){
-      if(d.name)document.getElementById('setName').value=d.name;
-      if(d.auto)document.getElementById('setAuto').value=d.auto;
-      if(d.srv)document.getElementById('setSrv').value=d.srv;
+      if(d.u)document.getElementById('sUsername').value=d.u
+      if(d.a)document.getElementById('sAutoOpen').checked=d.a==1
+      if(d.d)document.getElementById('sDefaultServer').value=d.d
     }
   }catch(e){}
 }
+loadSettings()
 
-// Escape to exit
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&document.getElementById('overlay').classList.contains('show')) exitGame();
-});
+// ── TIPS ROTATION ──
+const TIPS=[
+  'Press <strong>F11</strong> for fullscreen gaming experience!',
+  'Use <strong>W A S D</strong> to move around the world.',
+  '<strong>Space</strong> to jump, <strong>Shift</strong> to sneak.',
+  '<strong>Left click</strong> to mine, <strong>right click</strong> to place.',
+  'Press <strong>E</strong> to open your inventory.',
+  'Works on <strong>mobile</strong> devices too! 📱',
+  '100% <strong>free</strong> · Zero ads · No Java needed.',
+  'Made with ❤️ in <strong>India</strong> by Ayush & Anzar.',
+]
+let tipIdx=0
+setInterval(()=>{
+  tipIdx=(tipIdx+1)%TIPS.length
+  document.getElementById('tipText').innerHTML=TIPS[tipIdx]
+},6000)
 
-loadSet();
+// ── ADJUST CANVAS ON SCROLL ──
+window.addEventListener('scroll',()=>{canvas.height=document.body.scrollHeight})
+
+console.log('⛏️ A2Launcher v3.0 — Premium Edition')
+console.log('👥 Ayush Rajdev & Anzar Iqbal')
+console.log('🇮🇳 Made in India')
 </script>
 </body>
 </html>
